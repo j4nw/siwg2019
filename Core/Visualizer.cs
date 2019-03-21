@@ -6,7 +6,10 @@ namespace Core
 {
     public static class Visualizer<TLayer>
     {
-        public static Image BoardToImage(IBoard<TLayer> board, Dictionary<TLayer, (Color lowest, Color highest)> colorByLayer, List<TLayer> orderedLayers)
+        public static Image BoardToImage(
+            IBoard<TLayer> board,
+            Dictionary<TLayer, (Color lowest, Color highest)> colorsByLayer,
+            List<TLayer> orderedLayers) // the topmost one that exists gets rendered
         {
             var image = new Bitmap(board.Width, board.Height);
             for (var x = 0; x < board.Width; x++)
@@ -30,7 +33,7 @@ namespace Core
 
                     if (foundLayer)
                     {
-                        var (lowest, highest) = colorByLayer[topLayer];
+                        var (lowest, highest) = colorsByLayer[topLayer];
                         var normalizedValue = (float)layerValue / byte.MaxValue;
                         var color = LerpColor(lowest, highest, normalizedValue);
 
