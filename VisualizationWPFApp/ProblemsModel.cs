@@ -16,7 +16,7 @@ namespace VisualizationWPFApp
             Problems = new List<string>();
             Problems.Add("Plansza 2D");
             Problems.Add("Warcaby");
-            Problems.Add("Kółko i krzyżyk");
+            Problems.Add("Kółko i Krzyżyk");
             Problems.Add("Labirynt");
             SelectedProblem = Problems[0];
         }

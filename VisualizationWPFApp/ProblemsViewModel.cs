@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace VisualizationWPFApp
 {
@@ -23,6 +24,27 @@ namespace VisualizationWPFApp
             {
                 model.SelectedProblem = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("SelectedProblem"));
+                PropertyChanged(this, new PropertyChangedEventArgs("ProblemSettings"));
+            }
+        }
+
+        public UserControl ProblemSettings
+        {
+            get
+            {
+                switch (model.SelectedProblem)
+                {
+                    case "Warcaby":
+                        return new SettingsMenus.WarcabySettings();
+                    case "Plansza 2D":
+                        return new SettingsMenus.Plansza2DSettings();
+                    case "Kółko i Krzyżyk":
+                        return new SettingsMenus.KółkoIKrzyżykSettings();
+                    case "Labirynt":
+                        return new SettingsMenus.LabiryntSettings();
+                    default:
+                        return null;
+                }
             }
         }
 
