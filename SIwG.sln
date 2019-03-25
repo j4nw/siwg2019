@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldGeneration", "WorldGen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldGeneration.CLI", "WorldGeneration.CLI\WorldGeneration.CLI.csproj", "{F56B3AEC-62FE-4558-A7D2-E82BAC302F7B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisualizationWPFApp", "VisualizationWPFApp\VisualizationWPFApp.csproj", "{27ACDE4C-30A8-4F1C-AD54-249003FE9AD7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F56B3AEC-62FE-4558-A7D2-E82BAC302F7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F56B3AEC-62FE-4558-A7D2-E82BAC302F7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F56B3AEC-62FE-4558-A7D2-E82BAC302F7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27ACDE4C-30A8-4F1C-AD54-249003FE9AD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27ACDE4C-30A8-4F1C-AD54-249003FE9AD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27ACDE4C-30A8-4F1C-AD54-249003FE9AD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27ACDE4C-30A8-4F1C-AD54-249003FE9AD7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
