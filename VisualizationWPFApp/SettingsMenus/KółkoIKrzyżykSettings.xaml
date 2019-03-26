@@ -6,6 +6,9 @@
              xmlns:local="clr-namespace:VisualizationWPFApp.SettingsMenus"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="300">
+    <UserControl.Background>
+        <SolidColorBrush Color="White"/>
+    </UserControl.Background>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>

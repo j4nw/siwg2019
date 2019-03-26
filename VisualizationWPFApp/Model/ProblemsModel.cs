@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VisualizationWPFApp
+namespace VisualizationWPFApp.Model
 {
     public class ProblemsModel
     {

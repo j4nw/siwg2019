@@ -97,8 +97,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProblemsModel.cs" />
-    <Compile Include="ProblemsViewModel.cs" />
+    <Compile Include="Model\ProblemsModel.cs" />
+    <Compile Include="ViewModel\ProblemsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

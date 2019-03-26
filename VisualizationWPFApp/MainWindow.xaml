@@ -4,13 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VisualizationWPFApp"
+        xmlns:vm="clr-namespace:VisualizationWPFApp.ViewModel"
         mc:Ignorable="d"
         Title="Sztuczna Inteligencja w Grach 2019" Height="720" Width="1280">
     <Window.Background>
         <SolidColorBrush Color="AliceBlue" />
     </Window.Background>
     <Window.DataContext>
-        <local:ProblemsViewModel/>
+        <vm:ProblemsViewModel/>
     </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>

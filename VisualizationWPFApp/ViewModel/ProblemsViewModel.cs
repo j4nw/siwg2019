@@ -6,11 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace VisualizationWPFApp
+namespace VisualizationWPFApp.ViewModel
 {
     public class ProblemsViewModel : INotifyPropertyChanged
     {
-        private ProblemsModel model = new ProblemsModel();
+        private Model.ProblemsModel model = new Model.ProblemsModel();
 
         public List<string> Problems { get { return model.Problems; } }
 
