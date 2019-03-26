@@ -28,24 +28,49 @@ namespace WorldGeneration
             }
         }
 
-        public World(int width, int height, float waterLevel = 0.4f, float perlinScale = 50f)
+        public World(int width, int height)
         {
             Width = width;
             Height = height;
             world = new WorldTile[width, height];
+        }
 
-            var heightMap = new NoiseMap(width, height);
+        public void DrawRectangle(int x, int y, int width, int height, WorldLayer layer, byte value)
+        {
+            for (var dx = 0; dx < width; dx++)
+            {
+                for (var dy = 0; dy < height; dy++)
+                {
+                    switch (layer)
+                    {
+                        case WorldLayer.Land:
+                            world[x + dx, y + dy].height = value;
+                            break;
+                        case WorldLayer.Water:
+                            world[x + dx, y + dy].isWater = Convert.ToBoolean(value);
+                            break;
+                        case WorldLayer.Wall:
+                            world[x + dx, y + dy].isWall = Convert.ToBoolean(value);
+                            break;
+                    }
+                }
+            }
+        }
+
+        public void GeneratePerlinTerrain(float waterLevel = 0.4f, float perlinScale = 50f)
+        {
+            var heightMap = new NoiseMap(Width, Height);
             var builder = new NoiseMapBuilderPlane();
             builder.NoiseMap = heightMap;
             builder.SourceModule = new ImprovedPerlin();
-            builder.SetBounds(0, width / perlinScale, 0, height / perlinScale);
-            builder.SetSize(width, height);
+            builder.SetBounds(0, Width / perlinScale, 0, Height / perlinScale);
+            builder.SetSize(Width, Height);
             builder.Build();
             heightMap.MinMax(out var minHeight, out var maxHeight);
 
-            for (var x = 0; x < width; x++)
+            for (var x = 0; x < Width; x++)
             {
-                for (var y = 0; y < height; y++)
+                for (var y = 0; y < Height; y++)
                 {
                     var landHeight = heightMap.GetValue(x, y);
                     var normalizedLandHeight = (landHeight - minHeight) / (maxHeight - minHeight);
