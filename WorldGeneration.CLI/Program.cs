@@ -10,6 +10,7 @@ namespace WorldGeneration.CLI
         static void Main(string[] args)
         {
             var world = new World(1024, 512);
+            world.GeneratePerlinTerrain();
 
             var colorsByLayer = new Dictionary<WorldLayer, (Color low, Color high)>
             {
