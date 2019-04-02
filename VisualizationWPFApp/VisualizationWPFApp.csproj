@@ -55,18 +55,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="SettingsMenus\KółkoIKrzyżykSettings.xaml.cs">
-      <DependentUpon>KółkoIKrzyżykSettings.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SettingsMenus\LabiryntSettings.xaml.cs">
-      <DependentUpon>LabiryntSettings.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SettingsMenus\Plansza2DSettings.xaml.cs">
-      <DependentUpon>Plansza2DSettings.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SettingsMenus\WarcabySettings.xaml.cs">
-      <DependentUpon>WarcabySettings.xaml</DependentUpon>
-    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -79,22 +67,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="SettingsMenus\KółkoIKrzyżykSettings.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SettingsMenus\LabiryntSettings.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SettingsMenus\Plansza2DSettings.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SettingsMenus\WarcabySettings.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\ProblemsModel.cs" />
@@ -123,6 +95,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{5deb16ae-43e6-4430-a566-652bc9e39609}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

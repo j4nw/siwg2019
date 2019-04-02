@@ -19,16 +19,17 @@
             <ColumnDefinition Width="300" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="150" />
+            <RowDefinition Height="250" />
+            <RowDefinition Height="350" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Border Grid.Column="0" Grid.RowSpan="2" BorderThickness="1" BorderBrush="Gray" Margin="10,10,10,10" />
-        <Border Grid.Column="1" BorderThickness="1" BorderBrush="Gray" Margin="10,10,10,10" />
-        <Border Grid.Column="1" Grid.Row="1" BorderThickness="1" BorderBrush="Gray" Margin="10,10,10,10" />
-        <TextBlock Grid.Column="1" Text="Problem:" FontSize="30" FontFamily="Candara" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,15,10,10"/>
-        <ComboBox Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,70,10,10" Width="200" Height="40"
-                  FontFamily="Candara" FontSize="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
-                  ItemsSource="{Binding Problems}" SelectedValue="{Binding SelectedProblem, Mode=TwoWay}"/>
-        <ContentControl Grid.Column="1" Grid.Row="1" Margin="15,15,15,15" Content="{Binding ProblemSettings}" />
+        <Border Grid.Column="0" Grid.RowSpan="3" BorderThickness="1" BorderBrush="Gray" Margin="10,10,10,10" />
+        <TextBlock Grid.Column="1" Text="Recent visualizations:" FontSize="25" FontFamily="Candara" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,15,10,10"/>
+        <ListBox Grid.Column="1" Margin="0,60,10,10" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+        <TextBlock Grid.Column="1" Grid.Row="1" Text="Settings:" FontSize="25" FontFamily="Candara" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,15,10,10"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Text="aa" Margin="0,60,10,10" BorderBrush="Gray" BorderThickness="1" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+        <Button Grid.Column="1" Grid.Row="2" Content="Show/hide selected" Margin="0,0,155,60" />
+        <Button Grid.Column="1" Grid.Row="2" Content="Clear" Margin="155,0,10,60" />
+        <Button Grid.Column="1" Grid.Row="2" Content="Add new visualization" Margin="0,40,15,10" />
     </Grid>
 </Window>

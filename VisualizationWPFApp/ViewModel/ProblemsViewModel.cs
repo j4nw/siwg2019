@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -12,39 +13,36 @@ namespace VisualizationWPFApp.ViewModel
     {
         private Model.ProblemsModel model = new Model.ProblemsModel();
 
-        public List<string> Problems { get { return model.Problems; } }
+        public List<ProblemVisualization> ProblemList { get { return model.ProblemList; } }
+        public List<ProblemVisualization> ProblemHistory { get { return model.ProblemHistory; } }
+        public string SelectedOnListSettings { get { return SelectedOnList.Settings; } }
+        public string SelectedOnHistorySettings { get { return SelectedOnHistory.Settings; } }
 
-        public string SelectedProblem
+        public ProblemVisualization SelectedOnList
         {
             get
             {
-                return model.SelectedProblem;
+                return model.SelectedOnList;
             }
             set
             {
-                model.SelectedProblem = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("SelectedProblem"));
-                PropertyChanged(this, new PropertyChangedEventArgs("ProblemSettings"));
+                model.SelectedOnList = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("SelectedOnList"));
+                PropertyChanged(this, new PropertyChangedEventArgs("SelectedOnListSettings"));
             }
         }
 
-        public UserControl ProblemSettings
+        public ProblemVisualization SelectedOnHistory
         {
             get
             {
-                switch (model.SelectedProblem)
-                {
-                    case "Warcaby":
-                        return new SettingsMenus.WarcabySettings();
-                    case "Plansza 2D":
-                        return new SettingsMenus.Plansza2DSettings();
-                    case "Kółko i Krzyżyk":
-                        return new SettingsMenus.KółkoIKrzyżykSettings();
-                    case "Labirynt":
-                        return new SettingsMenus.LabiryntSettings();
-                    default:
-                        return null;
-                }
+                return model.SelectedOnHistory;
+            }
+            set
+            {
+                model.SelectedOnHistory = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("SelectedOnHistory"));
+                PropertyChanged(this, new PropertyChangedEventArgs("SelectedOnHistorySettings"));
             }
         }
 

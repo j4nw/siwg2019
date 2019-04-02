@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,17 +9,23 @@ namespace VisualizationWPFApp.Model
 {
     public class ProblemsModel
     {
-        public List<string> Problems { get; private set; }
-        public string SelectedProblem { get; set; }
+        public List<ProblemVisualization> ProblemList { get; private set; }
+        public List<ProblemVisualization> ProblemHistory { get; set; }
+        public ProblemVisualization SelectedOnList { get; set; }
+        public ProblemVisualization SelectedOnHistory { get; set; }
+
+        public void LoadProblemList()
+        {
+            ProblemList.Clear();
+
+            // PROBLEM CLASSES LIST
+            ProblemList.Add(new ExampleProblemVisualization());
+        }
 
         public ProblemsModel()
         {
-            Problems = new List<string>();
-            Problems.Add("Plansza 2D");
-            Problems.Add("Warcaby");
-            Problems.Add("Kółko i Krzyżyk");
-            Problems.Add("Labirynt");
-            SelectedProblem = Problems[0];
+            ProblemList = new List<ProblemVisualization>();
+            ProblemHistory = new List<ProblemVisualization>();
         }
     }
 }
