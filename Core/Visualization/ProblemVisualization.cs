@@ -10,10 +10,10 @@ namespace Core
     public abstract class ProblemVisualization
     {
         protected ProblemVisualizationSettings settings = new ProblemVisualizationSettings();
+        
+        public abstract Bitmap Visualization { get; }
 
-        public abstract string Name { get; }
-
-        public abstract Image Visualization { get; }
+        public string Name { get; set; }
 
         public string Settings
         {

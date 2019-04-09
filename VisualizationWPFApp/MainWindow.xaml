@@ -4,32 +4,36 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VisualizationWPFApp"
-        xmlns:vm="clr-namespace:VisualizationWPFApp.ViewModel"
         mc:Ignorable="d"
-        Title="Sztuczna Inteligencja w Grach 2019" Height="720" Width="1280">
+        Title="Sztuczna Inteligencja w Grach 2019" Height="720" Width="1280" >
+    <Window.DataContext>
+        <local:ViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <local:BitmapToBitmapSourceConverter x:Key="BitmapToBitmapSourceConverter" />
+    </Window.Resources>
     <Window.Background>
         <SolidColorBrush Color="AliceBlue" />
     </Window.Background>
-    <Window.DataContext>
-        <vm:ProblemsViewModel/>
-    </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="300" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="250" />
-            <RowDefinition Height="350" />
+            <RowDefinition Height="200" />
+            <RowDefinition Height="200" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <Border Grid.Column="0" Grid.RowSpan="3" BorderThickness="1" BorderBrush="Gray" Margin="10,10,10,10" />
+        <Image Grid.RowSpan="3" Margin="13,13,13,13" Source="{Binding Visualization, Converter={StaticResource BitmapToBitmapSourceConverter}}" />
         <TextBlock Grid.Column="1" Text="Recent visualizations:" FontSize="25" FontFamily="Candara" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,15,10,10"/>
-        <ListBox Grid.Column="1" Margin="0,60,10,10" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+        <ListBox x:Name="test" Grid.Column="1" Margin="0,60,10,10" ScrollViewer.VerticalScrollBarVisibility="Auto" ItemsSource="{Binding ProblemHistory, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedOnHistory, Mode=TwoWay}" />
         <TextBlock Grid.Column="1" Grid.Row="1" Text="Settings:" FontSize="25" FontFamily="Candara" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,15,10,10"/>
-        <TextBox Grid.Column="1" Grid.Row="1" Text="aa" Margin="0,60,10,10" BorderBrush="Gray" BorderThickness="1" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" />
-        <Button Grid.Column="1" Grid.Row="2" Content="Show/hide selected" Margin="0,0,155,60" />
-        <Button Grid.Column="1" Grid.Row="2" Content="Clear" Margin="155,0,10,60" />
-        <Button Grid.Column="1" Grid.Row="2" Content="Add new visualization" Margin="0,40,15,10" />
+        <TextBox Grid.Column="1" Grid.Row="1" Margin="0,60,10,10" BorderBrush="Gray" BorderThickness="1"
+                 AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" Text="{Binding SelectedOnHistory.Settings}" />
+        <Button Grid.Column="1" Grid.Row="2" Content="Show/Hide selected" Height="25" VerticalAlignment="Top" Margin="0,0,155,10" Command="{Binding ShowHideImageCommand}" />
+        <Button Grid.Column="1" Grid.Row="2" Content="Hide all" Height="25" VerticalAlignment="Top" Margin="155,0,10,10" Command="{Binding HideAllCommand}" />
+        <Button Grid.Column="1" Grid.Row="2" Content="Add new visualization" Height="30" VerticalAlignment="Bottom" Margin="0,10,15,10" Command="{Binding ShowModalCommand}" />
     </Grid>
 </Window>

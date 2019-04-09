@@ -46,7 +46,7 @@ namespace Core
             foreach (var item in sSplit)
             {
                 string[] line = item.Split(' ');
-                dict.Add(line[0], line[2]);
+                if (line.Length > 2) dict[line[0]] = line[2];
             }
         }
 

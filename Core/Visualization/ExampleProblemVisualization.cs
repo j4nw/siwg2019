@@ -12,9 +12,19 @@ namespace Core
 
     public class ExampleProblemVisualization : ProblemVisualization
     {
-        public override string Name { get { return "ShowColorRectangle"; } } // name visible on list
+        public ExampleProblemVisualization()
+        {
+            // name visible on list
+            Name = "ShowColorRectangle";
 
-        public override Image Visualization // get image for visualization
+            // default settings
+            // settings methods: Add, Remove, GetStringValue, GetIntValue (convertion from string), GetDoubleValue (convertion from string)
+            settings.Add("Width", "30"); 
+            settings.Add("Height", "30");
+            settings.Add("Color", "Blue");
+        } 
+
+        public override Bitmap Visualization // get image for visualization
         {
             get
             {
@@ -34,13 +44,6 @@ namespace Core
                 }
                 return image;
             }
-        }
-
-        public ExampleProblemVisualization() // default settings in constructor
-        {
-            settings.Add("Width", "30");
-            settings.Add("Height", "30");
-            settings.Add("Color", "Blue");
         }
     }
 }
