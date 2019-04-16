@@ -19,7 +19,7 @@ namespace VisualizationWPFApp
 
         public Bitmap GetVisualization()
         {
-            Bitmap toShow = new Bitmap(540, 540);
+            Bitmap toShow = new Bitmap(550, 550);
             Graphics g = Graphics.FromImage(toShow);
 
             foreach (var item in RecentList)
@@ -48,7 +48,6 @@ namespace VisualizationWPFApp
         {
             ProblemList = new ObservableCollection<ProblemVisualization>();
             RecentList = new ObservableCollection<ProblemVisualization>();
-            RecentList.Add(new ExampleProblemVisualization());
         }
     }
 }

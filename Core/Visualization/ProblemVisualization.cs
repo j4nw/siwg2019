@@ -9,25 +9,13 @@ namespace Core
 {
     public abstract class ProblemVisualization
     {
-        protected ProblemVisualizationSettings settings = new ProblemVisualizationSettings();
+        public ProblemVisualizationSettings Settings { get; set; }        
         
         public abstract Bitmap Visualization { get; }
 
         public string Name { get; set; }
 
         public bool Visible { get; set; }
-
-        public string Settings
-        {
-            get
-            {
-                return settings.ToString();
-            }
-            set
-            {
-                settings.MakeSettingsFromString(value);
-            }
-        }
 
         public override string ToString()
         {
@@ -36,6 +24,7 @@ namespace Core
 
         public ProblemVisualization()
         {
+            Settings = new ProblemVisualizationSettings();
             Name = "Default Problem";
             Visible = false;
         }

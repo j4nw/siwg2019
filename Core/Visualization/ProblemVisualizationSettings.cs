@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,58 +10,80 @@ namespace Core
 {
     public class ProblemVisualizationSettings
     {
-        private Dictionary<string, string> dict = new Dictionary<string, string>();
+        
+
+        public ObservableCollection<ObservableKeyValuePair> Dict { get; private set; }
 
         public void Add(string key, string value)
         {
-            dict.Add(key, value);
+            Dict.Add(new ObservableKeyValuePair(key, value));
         }
 
         public void Remove(string key)
         {
-            if (dict.ContainsKey(key)) dict.Remove(key);
+            foreach (var item in Dict)
+            {
+                if (item.Key == key) Dict.Remove(item);
+            }
         }
 
         public string GetStringValue(string key)
         {
-            if (dict.ContainsKey(key)) return dict[key];
-            else return null;
+            foreach (var item in Dict)
+            {
+                if (item.Key == key) return item.Val;
+            }
+            return null;            
         }
 
         public int GetIntValue(string key)
         {
-            if (dict.ContainsKey(key)) return int.Parse(dict[key]);
-            else return -1;
+            foreach (var item in Dict)
+            {
+                if (item.Key == key) return int.Parse(item.Val);
+            }
+            return -1;            
         }
 
         public double GetDoubleValue(string key)
         {
-            if (dict.ContainsKey(key)) return double.Parse(dict[key]);
-            else return -1;
+            foreach (var item in Dict)
+            {
+                if (item.Key == key) return double.Parse(item.Val);
+            }
+            return -1;
         }
 
-        public void MakeSettingsFromString(string s)
+        public ProblemVisualizationSettings()
         {
-            dict.Clear();
-            string[] sSplit = s.Split('\n');
+            Dict = new ObservableCollection<ObservableKeyValuePair>();
+        }
+    }
 
-            foreach (var item in sSplit)
+    public class ObservableKeyValuePair : INotifyPropertyChanged
+    {
+        private string val;
+
+        public ObservableKeyValuePair(string key, string val)
+        {
+            Key = key;
+            Val = val;
+        }
+
+        public string Key { get; set; }
+        public string Val
+        {
+            get
             {
-                string[] line = item.Split(' ');
-                if (line.Length > 2) dict[line[0]] = line[2];
+                return val;
+            }
+            set
+            {
+                val = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Val"));
             }
         }
 
-        public override string ToString()
-        {
-            string ret = "";
-
-            foreach (var item in dict)
-            {
-                ret += item.Key + " : " + item.Value + "\n";
-            }
-
-            return ret;
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

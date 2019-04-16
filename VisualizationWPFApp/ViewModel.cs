@@ -21,7 +21,8 @@ namespace VisualizationWPFApp
         private ICommand submitModalCommand = null;
         private ICommand removeRecentCommand = null;
         private ICommand removeAllRecentCommand = null;
-        private ICommand updateVisualizationCommand = null;
+        private ICommand hideAllCommand = null;
+        private ICommand updateCommand = null;
         private int historyCount = 0;
 
         public ObservableCollection<ProblemVisualization> ProblemList { get { return model.ProblemList; } }
@@ -36,7 +37,7 @@ namespace VisualizationWPFApp
             set
             {
                 model.SelectedProblem = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("SelectedProblem"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedProblem"));
             }
         }
 
@@ -49,7 +50,7 @@ namespace VisualizationWPFApp
             set
             {
                 model.SelectedRecent = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("SelectedRecent"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedRecent"));
             }
         }
 
@@ -110,6 +111,7 @@ namespace VisualizationWPFApp
                         {
                             model.RecentList.Remove(toRemove);
                         }
+                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Visualization"));
                     });
                 }
                 return removeRecentCommand;
@@ -125,27 +127,47 @@ namespace VisualizationWPFApp
                     removeAllRecentCommand = new RelayCommand(m =>
                     {
                         model.RecentList.Clear();
+                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Visualization"));
                     });
                 }
                 return removeAllRecentCommand;
             }
         }
 
-        public ICommand UpdateVisualizationCommand
+        public ICommand HideAllCommand
         {
             get
             {
-                if (updateVisualizationCommand == null)
+                if (hideAllCommand == null)
                 {
-                    updateVisualizationCommand = new RelayCommand(item =>
+                    hideAllCommand = new RelayCommand(m =>
                     {
-                        (item as ProblemVisualization).Visible = !(item as ProblemVisualization).Visible;
+                        foreach (var item in RecentList)
+                        {
+                            item.Visible = false;
+                        }
+                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Visualization"));
                     });
                 }
-                return updateVisualizationCommand;
+                return hideAllCommand;
             }
         }
 
+        public ICommand UpdateCommand
+        {
+            get
+            {
+                if (updateCommand == null)
+                {
+                    updateCommand = new RelayCommand(item =>
+                    {
+                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Visualization"));
+                    });
+                }
+                return updateCommand;
+            }
+        }
+        
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }

@@ -17,20 +17,20 @@ namespace Core
             // name visible on list
             Name = "ShowColorRectangle";
 
-            // default settings
-            // settings methods: Add, Remove, GetStringValue, GetIntValue (convertion from string), GetDoubleValue (convertion from string)
-            settings.Add("Width", "30"); 
-            settings.Add("Height", "30");
-            settings.Add("Color", "Blue");
+            // default settings as strings
+            // Available methods in 'Settings' Class: Add, Remove, GetStringValue, GetIntValue (parse from string), GetDoubleValue (parse from string)
+            Settings.Add("Width", "30");
+            Settings.Add("Height", "30");
+            Settings.Add("Color", "Blue");            
         } 
 
         public override Bitmap Visualization // get image for visualization
         {
             get
             {
-                Bitmap image = new Bitmap(settings.GetIntValue("Width"), settings.GetIntValue("Height"));
+                Bitmap image = new Bitmap(Settings.GetIntValue("Width"), Settings.GetIntValue("Height"));
                 Graphics g = Graphics.FromImage(image);
-                switch (settings.GetStringValue("Color"))
+                switch (Settings.GetStringValue("Color"))
                 {
                     case "Green":
                         g.Clear(Color.Green);

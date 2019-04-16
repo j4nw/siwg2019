@@ -11,7 +11,20 @@
     </Window.Background>
     <Grid>
         <ComboBox VerticalAlignment="Top" Margin="10,10,10,10" Height="35" ItemsSource="{Binding ProblemList}" SelectedItem="{Binding SelectedProblem, Mode=TwoWay}" />
-        <TextBox Margin="10,60,10,60" Text="{Binding SelectedProblem.Settings, Mode=TwoWay}" />
+        <ListBox x:Name="settings" Margin="10,60,10,60" ItemsSource="{Binding SelectedProblem.Settings.Dict}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Key}" />
+                        <TextBox Text="{Binding Val}" Grid.Column="1" Width="100" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <Button VerticalAlignment="Bottom" Margin="10,10,10,10" Content="ADD" Height="35" Command="{Binding SubmitModalCommand}" />
     </Grid>
 </Window>
