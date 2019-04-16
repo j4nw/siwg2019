@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Core
 {
     public class ProblemVisualizationSettings
     {
-        
-
         public ObservableCollection<ObservableKeyValuePair> Dict { get; private set; }
 
         public void Add(string key, string value)
