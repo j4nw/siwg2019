@@ -10,8 +10,8 @@
         <SolidColorBrush Color="AliceBlue" />
     </Window.Background>
     <Grid>
-        <ComboBox VerticalAlignment="Top" Margin="10,10,10,10" Height="35" ItemsSource="{Binding ProblemList}" SelectedItem="{Binding SelectedOnList, Mode=TwoWay}" />
-        <TextBox Margin="10,60,10,60" Text="{Binding SelectedOnList.Settings, Mode=TwoWay}" />
+        <ComboBox VerticalAlignment="Top" Margin="10,10,10,10" Height="35" ItemsSource="{Binding ProblemList}" SelectedItem="{Binding SelectedProblem, Mode=TwoWay}" />
+        <TextBox Margin="10,60,10,60" Text="{Binding SelectedProblem.Settings, Mode=TwoWay}" />
         <Button VerticalAlignment="Bottom" Margin="10,10,10,10" Content="ADD" Height="35" Command="{Binding SubmitModalCommand}" />
     </Grid>
 </Window>

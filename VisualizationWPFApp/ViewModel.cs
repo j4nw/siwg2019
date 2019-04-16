@@ -17,38 +17,38 @@ namespace VisualizationWPFApp
     {
         private AddVisualizationWindow visualWindow = null;
         private Model model = new Model();
-        private ICommand showModalCommand = null;
+        private ICommand addNewVisualizationCommand = null;
         private ICommand submitModalCommand = null;
-        private ICommand showHideImageCommand = null;
-        private ICommand hideAllCommand = null;
+        private ICommand removeRecentCommand = null;
+        private ICommand removeAllRecentCommand = null;
         private int historyCount = 0;
 
         public ObservableCollection<ProblemVisualization> ProblemList { get { return model.ProblemList; } }
-        public ObservableCollection<ProblemVisualization> ProblemHistory { get { return model.ProblemHistory; } }
+        public ObservableCollection<ProblemVisualization> RecentList { get { return model.RecentList; } }
 
-        public ProblemVisualization SelectedOnList
+        public ProblemVisualization SelectedProblem
         {
             get
             {
-                return model.SelectedOnList;
+                return model.SelectedProblem;
             }
             set
             {
-                model.SelectedOnList = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("SelectedOnList"));
+                model.SelectedProblem = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("SelectedProblem"));
             }
         }
 
-        public ProblemVisualization SelectedOnHistory
+        public ProblemVisualization SelectedRecent
         {
             get
             {
-                return model.SelectedOnHistory;
+                return model.SelectedRecent;
             }
             set
             {
-                model.SelectedOnHistory = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("SelectedOnHistory"));
+                model.SelectedRecent = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("SelectedRecent"));
             }
         }
 
@@ -56,22 +56,17 @@ namespace VisualizationWPFApp
         {
             get
             {
-                return model.Visualization;
-            }
-            set
-            {
-                model.Visualization = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("Vizualisation"));
+                return model.GetVisualization();
             }
         }
 
-        public ICommand ShowModalCommand
+        public ICommand AddNewVisualizationCommand
         {
             get
             {
-                if (showModalCommand == null)
+                if (addNewVisualizationCommand == null)
                 {
-                    showModalCommand = new RelayCommand(m =>
+                    addNewVisualizationCommand = new RelayCommand(m =>
                     {
                         model.LoadProblemList();
                         visualWindow = new AddVisualizationWindow();
@@ -79,7 +74,7 @@ namespace VisualizationWPFApp
                         visualWindow.Show();
                     });
                 }
-                return showModalCommand;
+                return addNewVisualizationCommand;
             }
         }
 
@@ -91,49 +86,50 @@ namespace VisualizationWPFApp
                 {
                     submitModalCommand = new RelayCommand(m =>
                     {
-                        SelectedOnList.Name += " " + historyCount;
+                        SelectedProblem.Name += " " + historyCount;
                         historyCount++;
-                        ProblemHistory.Add(SelectedOnList);
+                        RecentList.Add(SelectedProblem);
                         visualWindow.Close();
-                        PropertyChanged(this, new PropertyChangedEventArgs("ProblemHistory"));
+                        PropertyChanged(this, new PropertyChangedEventArgs("RecentList"));
                     });
                 }
                 return submitModalCommand;
             }
         }
 
-        public ICommand ShowHideImageCommand
+        public ICommand RemoveRecentCommand
         {
             get
             {
-                if (showHideImageCommand == null)
+                if (removeRecentCommand == null)
                 {
-                    showHideImageCommand = new RelayCommand(m =>
+                    removeRecentCommand = new RelayCommand(item =>
                     {
-                        if (SelectedOnHistory != null)
+                        ProblemVisualization toRemove = item as ProblemVisualization;
+                        if (model.RecentList.Contains(toRemove))
                         {
-                            Visualization = SelectedOnHistory.Visualization;
-                            PropertyChanged(this, new PropertyChangedEventArgs("Visualization"));
+                            model.RecentList.Remove(toRemove);
                         }
+                        PropertyChanged(this, new PropertyChangedEventArgs("RecentList"));
                     });
                 }
-                return showHideImageCommand;
+                return removeRecentCommand;
             }
         }
 
-        public ICommand HideAllCommand
+        public ICommand RemoveAllRecentCommand
         {
             get
             {
-                if (hideAllCommand == null)
+                if (removeAllRecentCommand == null)
                 {
-                    hideAllCommand = new RelayCommand(m =>
+                    removeAllRecentCommand = new RelayCommand(m =>
                     {
-                        Visualization = null;
-                        PropertyChanged(this, new PropertyChangedEventArgs("Visualization"));
+                        model.RecentList.Clear();
                     });
+                    PropertyChanged(this, new PropertyChangedEventArgs("RecentList"));
                 }
-                return hideAllCommand;
+                return removeAllRecentCommand;
             }
         }
 

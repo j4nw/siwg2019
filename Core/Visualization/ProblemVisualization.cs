@@ -15,6 +15,8 @@ namespace Core
 
         public string Name { get; set; }
 
+        public bool Visible { get; set; }
+
         public string Settings
         {
             get
@@ -30,6 +32,12 @@ namespace Core
         public override string ToString()
         {
             return Name;
+        }
+
+        public ProblemVisualization()
+        {
+            Name = "Default Problem";
+            Visible = false;
         }
     }
 }

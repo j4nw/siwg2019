@@ -13,10 +13,14 @@ namespace VisualizationWPFApp
     public class Model
     {
         public ObservableCollection<ProblemVisualization> ProblemList { get; private set; }
-        public ObservableCollection<ProblemVisualization> ProblemHistory { get; set; }
-        public ProblemVisualization SelectedOnList { get; set; }
-        public ProblemVisualization SelectedOnHistory { get; set; }
-        public Bitmap Visualization { get; set; }
+        public ObservableCollection<ProblemVisualization> RecentList { get; set; }
+        public ProblemVisualization SelectedProblem { get; set; }
+        public ProblemVisualization SelectedRecent { get; set; }
+
+        public Bitmap GetVisualization()
+        {
+            throw new NotImplementedException();
+        }
 
         public void LoadProblemList()
         {
@@ -26,14 +30,14 @@ namespace VisualizationWPFApp
             ProblemList.Add(new ExampleProblemVisualization());
             ProblemList.Add(new ExampleProblemVisualization());
             // ---
-            SelectedOnList = ProblemList[0];
-            
+            SelectedProblem = ProblemList[0];           
         }
 
         public Model()
         {
             ProblemList = new ObservableCollection<ProblemVisualization>();
-            ProblemHistory = new ObservableCollection<ProblemVisualization>();
+            RecentList = new ObservableCollection<ProblemVisualization>();
+            RecentList.Add(new ExampleProblemVisualization());
         }
     }
 }
