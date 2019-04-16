@@ -35,7 +35,7 @@ namespace WorldGeneration
             world = new WorldTile[width, height];
         }
 
-        public void DrawRectangle(int x, int y, int width, int height, WorldLayer layer, byte value)
+        public void DrawRectangle(int x, int y, int width, int height, WorldLayer layer, byte value = byte.MaxValue)
         {
             for (var dx = 0; dx < width; dx++)
             {
