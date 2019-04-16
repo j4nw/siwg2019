@@ -21,6 +21,7 @@ namespace VisualizationWPFApp
         private ICommand submitModalCommand = null;
         private ICommand removeRecentCommand = null;
         private ICommand removeAllRecentCommand = null;
+        private ICommand updateVisualizationCommand = null;
         private int historyCount = 0;
 
         public ObservableCollection<ProblemVisualization> ProblemList { get { return model.ProblemList; } }
@@ -90,7 +91,6 @@ namespace VisualizationWPFApp
                         historyCount++;
                         RecentList.Add(SelectedProblem);
                         visualWindow.Close();
-                        PropertyChanged(this, new PropertyChangedEventArgs("RecentList"));
                     });
                 }
                 return submitModalCommand;
@@ -110,7 +110,6 @@ namespace VisualizationWPFApp
                         {
                             model.RecentList.Remove(toRemove);
                         }
-                        PropertyChanged(this, new PropertyChangedEventArgs("RecentList"));
                     });
                 }
                 return removeRecentCommand;
@@ -127,9 +126,23 @@ namespace VisualizationWPFApp
                     {
                         model.RecentList.Clear();
                     });
-                    PropertyChanged(this, new PropertyChangedEventArgs("RecentList"));
                 }
                 return removeAllRecentCommand;
+            }
+        }
+
+        public ICommand UpdateVisualizationCommand
+        {
+            get
+            {
+                if (updateVisualizationCommand == null)
+                {
+                    updateVisualizationCommand = new RelayCommand(item =>
+                    {
+                        (item as ProblemVisualization).Visible = !(item as ProblemVisualization).Visible;
+                    });
+                }
+                return updateVisualizationCommand;
             }
         }
 

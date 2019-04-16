@@ -24,5 +24,10 @@ namespace VisualizationWPFApp
         {
             InitializeComponent();
         }
+
+        private void CheckBox_TargetUpdated(object sender, DataTransferEventArgs e)
+        {
+
+        }
     }
 }

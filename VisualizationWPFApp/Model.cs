@@ -19,7 +19,18 @@ namespace VisualizationWPFApp
 
         public Bitmap GetVisualization()
         {
-            throw new NotImplementedException();
+            Bitmap toShow = new Bitmap(540, 540);
+            Graphics g = Graphics.FromImage(toShow);
+
+            foreach (var item in RecentList)
+            {
+                if (item.Visible == true)
+                    g.DrawImage(item.Visualization, new Point(0, 0));
+            }
+
+            g.Dispose();
+
+            return toShow;
         }
 
         public void LoadProblemList()

@@ -25,15 +25,14 @@
             <RowDefinition Height="300" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Border Grid.Column="0" Grid.RowSpan="2" BorderThickness="1" BorderBrush="Gray" Margin="10,10,10,10" />
-        <!--<Image Grid.RowSpan="2" Margin="13,13,13,13" Source="{Binding Visualization, Converter={StaticResource BitmapToBitmapSourceConverter}}"/>-->
+        <Image Height="550" Width="550" Grid.RowSpan="2" Margin="13,13,13,13" Source="{Binding Visualization, Converter={StaticResource BitmapToBitmapSourceConverter}}"/>
         <TextBlock Grid.Column="1" Text="Recent visualizations:" FontSize="20" FontFamily="Candara" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,15,10,10"/>
         <ListBox x:Name="recent" Grid.Column="2" Margin="0,50,10,100" ScrollViewer.VerticalScrollBarVisibility="Auto"
                  ItemsSource="{Binding RecentList, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedRecent, Mode=TwoWay}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
-                        <CheckBox IsChecked="{Binding Visible}" />
+                        <CheckBox IsChecked="{Binding Visible, Mode=TwoWay}" />
                         <TextBlock Text="{Binding Name}" Margin="20,0,0,0" />
                         <Button Height="15" Width="15" Margin="165,0,0,0" Command="{Binding ElementName=recent, Path=DataContext.RemoveRecentCommand}" CommandParameter="{Binding}">
                             <Button.Content>
