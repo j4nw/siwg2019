@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IEdge.cs" />
     <Compile Include="Visualization\ProblemVisualization.cs" />
     <Compile Include="Visualization\ExampleProblemVisualization.cs" />
     <Compile Include="Visualization\ProblemVisualizationSettings.cs" />

@@ -41,12 +41,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Kruskal\Kruskal.cs" />
+    <Compile Include="Kruskal\QuickSort.cs" />
+    <Compile Include="Kruskal\UnionFind.cs" />
+    <Compile Include="Prim\BinaryHeap.cs" />
+    <Compile Include="Prim\Prim.cs" />
     <Compile Include="TreeSearchWithQueue\IFringe.cs" />
     <Compile Include="TreeSearchWithQueue\IProblem.cs" />
     <Compile Include="TreeSearchWithQueue\Node.cs" />
     <Compile Include="TreeSearchWithQueue\PriorityQueue.cs" />
     <Compile Include="TreeSearchWithQueue\TreeSearchWithQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{5deb16ae-43e6-4430-a566-652bc9e39609}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
