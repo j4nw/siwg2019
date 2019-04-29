@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisualizationWPFApp", "Visu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgorithmsLibrary", "AlgorithmsLibrary\AlgorithmsLibrary.csproj", "{4586EAD7-540E-42E4-91DB-B07190361E06}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labirynths", "Labirynths\Labirynths.csproj", "{6FA32B86-7220-488E-B901-1243A96610EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{4586EAD7-540E-42E4-91DB-B07190361E06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4586EAD7-540E-42E4-91DB-B07190361E06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4586EAD7-540E-42E4-91DB-B07190361E06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FA32B86-7220-488E-B901-1243A96610EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FA32B86-7220-488E-B901-1243A96610EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FA32B86-7220-488E-B901-1243A96610EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FA32B86-7220-488E-B901-1243A96610EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
