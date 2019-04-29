@@ -21,7 +21,7 @@ namespace Prim
 
         public IEnumerable<TVertex> Vertices { get { return vertices; } }
         public IEnumerable<TEdge> Edges { get { return edges; } }
-        public IEnumerable<TEdge> IncidentVertices(TVertex v) { return incidentVertices[v]; }
+        public IEnumerable<TEdge> IncidentEdges(TVertex v) { return incidentVertices[v]; }
 
         public void AddVertex(TVertex v)
         {
@@ -87,7 +87,7 @@ namespace Prim
             //Utwórz kolejkę priorytetową, zawierającą wierzchołki osiągalne z MDR(w tym momencie zawiera jeden wierzchołek), 
             //o priorytecie najmniejszego kosztu dotarcia do danego wierzchołka z MDR.
             BinaryHeap<TVertex, TEdge> EdgeQueue = new BinaryHeap<TVertex, TEdge>(IG.Edges.Count());
-            foreach (TEdge e in IG.IncidentVertices(VerticesLeft[0]) ) { 
+            foreach (TEdge e in IG.IncidentEdges(VerticesLeft[0]) ) { 
                 EdgeQueue.Insert(e);
             }
             VerticesLeft.RemoveAt(0);
@@ -113,7 +113,7 @@ namespace Prim
                         //zaktualizuj kolejkę priorytetową, uwzględniając nowe krawędzie wychodzące z dodanego wierzchołka
                         VerticesLeft.Remove(MinEdge.End);
                         //dodaj krawedzie wychodzace z nowo-dodanego wierzcholka ale takie ktore nie lacza sie z wierzcholkami juz bedacymi w MST
-                        foreach (TEdge e in IG.IncidentVertices(MinEdge.End))
+                        foreach (TEdge e in IG.IncidentEdges(MinEdge.End))
                         {
                             if (VerticesLeft.Contains(e.End) || VerticesLeft.Contains(e.Start))
                                 EdgeQueue.Insert(e);
@@ -128,7 +128,7 @@ namespace Prim
                         //zaktualizuj kolejkę priorytetową, uwzględniając nowe krawędzie wychodzące z dodanego wierzchołka
                         VerticesLeft.Remove(MinEdge.Start);
                         //dodaj krawedzie wychodzace z nowo-dodanego wierzcholka ale takie ktore nie lacza sie z wierzcholkami juz bedacymi w MST
-                        foreach (TEdge e in IG.IncidentVertices(MinEdge.Start))
+                        foreach (TEdge e in IG.IncidentEdges(MinEdge.Start))
                         {
                             if (VerticesLeft.Contains(e.End) || VerticesLeft.Contains(e.Start))
                                 EdgeQueue.Insert(e);

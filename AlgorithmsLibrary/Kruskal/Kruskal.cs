@@ -20,7 +20,7 @@ namespace Kruskal
 
         public IEnumerable<TVertex> Vertices { get { return vertices; } }
         public IEnumerable<TEdge> Edges { get { return edges; } }
-        public IEnumerable<TEdge> IncidentVertices(TVertex v) { return incidentVertices[v]; }
+        public IEnumerable<TEdge> IncidentEdges(TVertex v) { return incidentVertices[v]; }
 
         public void AddVertex(TVertex v)
         {

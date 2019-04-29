@@ -6,6 +6,6 @@ namespace Core
     {
         IEnumerable<TVertex> Vertices { get; }
         IEnumerable<TEdge> Edges { get; }
-        IEnumerable<TEdge> IncidentVertices(TVertex vertex);
+        IEnumerable<TEdge> IncidentEdges(TVertex vertex);
     }
 }
