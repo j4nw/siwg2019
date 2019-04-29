@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
 using Core;
 
 namespace Labirynths
@@ -61,6 +62,41 @@ namespace Labirynths
             if (matrix[vertex.x, vertex.y].w) yield return (vertex, (vertex.x - 1, vertex.y));
             if (matrix[vertex.x, vertex.y].s) yield return (vertex, (vertex.x, vertex.y + 1));
             if (matrix[vertex.x, vertex.y].e) yield return (vertex, (vertex.x + 1, vertex.y));
+        }
+
+        public Image Visualize(int wallSize = 2, int cellSize = 5)
+        {
+            var rects = new List<Rectangle>();
+            for (var x = 0; x < Width; x++)
+            {
+                for (var y = 0; y < Height; y++)
+                {
+                    var px = wallSize + x * (wallSize + cellSize);
+                    var py = wallSize + y * (wallSize + cellSize);
+                    rects.Add(new Rectangle(px, py, cellSize, cellSize));
+                    if (matrix[x, y].s)
+                    {
+                        rects.Add(new Rectangle(px, py + cellSize, cellSize, wallSize));
+                    }
+
+                    if (matrix[x, y].e)
+                    {
+                        rects.Add(new Rectangle(px + cellSize, py, wallSize, cellSize));
+                    }
+                }
+            }
+
+            var imageWidth = wallSize + Width * (wallSize + cellSize);
+            var imageHeight = wallSize + Height * (wallSize + cellSize);
+            var image = new Bitmap(imageWidth, imageHeight);
+
+            using (var graphics = Graphics.FromImage(image))
+            {
+                graphics.Clear(Color.Black);
+                graphics.DrawRectangles(Pens.Black, rects.ToArray());
+            }
+
+            return image;
         }
     }
 }
