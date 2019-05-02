@@ -4,7 +4,7 @@ using Core;
 
 namespace Labirynths
 {
-    public class LabirynthGraph : IGraph<(int x, int y), ((int x, int y) a, (int x, int y) b)>
+    public class Labirynth : IGraph<(int x, int y), ((int x, int y) a, (int x, int y) b)>
     {
         // x = 0, y = 0 is the upper left (north west) corner
 
@@ -13,7 +13,7 @@ namespace Labirynths
         public int Width { get; }
         public int Height { get; }
 
-        public LabirynthGraph(int width, int height)
+        public Labirynth(int width, int height)
         {
             Width = width;
             Height = height;
@@ -64,7 +64,7 @@ namespace Labirynths
             if (matrix[vertex.x, vertex.y].e) yield return (vertex, (vertex.x + 1, vertex.y));
         }
 
-        public Image Visualize(int wallSize = 2, int cellSize = 5)
+        public Image Visualize(int wallSize = 2, int cellSize = 20)
         {
             var rects = new List<Rectangle>();
             for (var x = 0; x < Width; x++)
@@ -93,7 +93,7 @@ namespace Labirynths
             using (var graphics = Graphics.FromImage(image))
             {
                 graphics.Clear(Color.Black);
-                graphics.DrawRectangles(Pens.Black, rects.ToArray());
+                graphics.FillRectangles(Brushes.White, rects.ToArray());
             }
 
             return image;
