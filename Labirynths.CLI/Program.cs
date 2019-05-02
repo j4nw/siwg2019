@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing.Imaging;
+﻿using System.Drawing.Imaging;
 
 namespace Labirynths.CLI
 {
@@ -7,7 +6,9 @@ namespace Labirynths.CLI
     {
         static void Main()
         {
-            var labirynth = new Labirynth(30, 30);
+            var method = new RecursiveDivision();
+            var labirynth = method.Generate(30, 30);
+
             var image = labirynth.Visualize();
             image.Save("labirynth.png", ImageFormat.Png);
         }

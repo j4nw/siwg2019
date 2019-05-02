@@ -8,7 +8,7 @@ namespace Labirynths
     {
         // x = 0, y = 0 is the upper left (north west) corner
 
-        protected (bool n, bool w, bool s, bool e)[,] matrix;
+        private (bool down, bool right)[,] matrix;
 
         public int Width { get; }
         public int Height { get; }
@@ -17,7 +17,13 @@ namespace Labirynths
         {
             Width = width;
             Height = height;
-            matrix = new (bool n, bool w, bool s, bool e)[width, height];
+            matrix = new (bool down, bool right)[width, height];
+        }
+
+        protected internal (bool down, bool right) this[int x, int y]
+        {
+            get => matrix[x, y];
+            set => matrix[x, y] = value;
         }
 
         public IEnumerable<(int x, int y)> Vertices
@@ -42,12 +48,12 @@ namespace Labirynths
                 {
                     for (var y = x; y < Height; y++)
                     {
-                        if (matrix[x, y].s)
+                        if (matrix[x, y].down)
                         {
                             yield return ((x, y), (x, y + 1));
                         }
 
-                        if (matrix[x, y].e)
+                        if (matrix[x, y].right)
                         {
                             yield return ((x, y), (x + 1, y));
                         }
@@ -58,10 +64,10 @@ namespace Labirynths
 
         public IEnumerable<((int x, int y) a, (int x, int y) b)> IncidentEdges((int x, int y) vertex)
         {
-            if (matrix[vertex.x, vertex.y].n) yield return (vertex, (vertex.x, vertex.y - 1));
-            if (matrix[vertex.x, vertex.y].w) yield return (vertex, (vertex.x - 1, vertex.y));
-            if (matrix[vertex.x, vertex.y].s) yield return (vertex, (vertex.x, vertex.y + 1));
-            if (matrix[vertex.x, vertex.y].e) yield return (vertex, (vertex.x + 1, vertex.y));
+            if (matrix[vertex.x, vertex.y].down) yield return (vertex, (vertex.x, vertex.y + 1));
+            if (matrix[vertex.x, vertex.y].right) yield return (vertex, (vertex.x + 1, vertex.y));
+            if (vertex.x > 0 && matrix[vertex.x - 1, vertex.y].right) yield return (vertex, (vertex.x - 1, vertex.y));
+            if (vertex.y > 0 && matrix[vertex.x, vertex.y - 1].down) yield return (vertex, (vertex.x, vertex.y - 1));
         }
 
         public Image Visualize(int wallSize = 2, int cellSize = 20)
@@ -74,12 +80,12 @@ namespace Labirynths
                     var px = wallSize + x * (wallSize + cellSize);
                     var py = wallSize + y * (wallSize + cellSize);
                     rects.Add(new Rectangle(px, py, cellSize, cellSize));
-                    if (matrix[x, y].s)
+                    if (matrix[x, y].down)
                     {
                         rects.Add(new Rectangle(px, py + cellSize, cellSize, wallSize));
                     }
 
-                    if (matrix[x, y].e)
+                    if (matrix[x, y].right)
                     {
                         rects.Add(new Rectangle(px + cellSize, py, wallSize, cellSize));
                     }
