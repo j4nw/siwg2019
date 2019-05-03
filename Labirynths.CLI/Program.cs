@@ -6,10 +6,10 @@ namespace Labirynths.CLI
     {
         static void Main()
         {
-            var method = new RecursiveDivision();
-            var labirynth = method.Generate(30, 30);
+            var method = new RandomizedDepthFirstSearch();
+            var labirynth = method.Generate(100, 100);
 
-            var image = labirynth.Visualize();
+            var image = labirynth.Visualize(1, 5);
             image.Save("labirynth.png", ImageFormat.Png);
         }
     }

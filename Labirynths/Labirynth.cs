@@ -62,12 +62,28 @@ namespace Labirynths
             }
         }
 
+        public IEnumerable<(int x, int y)> Adjacents((int x, int y) vertex)
+        {
+            if (vertex.y < Height - 1) yield return (vertex.x, vertex.y + 1);
+            if (vertex.x < Width - 1) yield return (vertex.x + 1, vertex.y);
+            if (vertex.x > 0) yield return (vertex.x - 1, vertex.y);
+            if (vertex.y > 0) yield return (vertex.x, vertex.y - 1);
+        }
+
+        public IEnumerable<(int x, int y)> Neighbors((int x, int y) vertex)
+        {
+            if (matrix[vertex.x, vertex.y].down) yield return (vertex.x, vertex.y + 1);
+            if (matrix[vertex.x, vertex.y].right) yield return (vertex.x + 1, vertex.y);
+            if (vertex.x > 0 && matrix[vertex.x - 1, vertex.y].right) yield return (vertex.x - 1, vertex.y);
+            if (vertex.y > 0 && matrix[vertex.x, vertex.y - 1].down) yield return (vertex.x, vertex.y - 1);
+        }
+
         public IEnumerable<((int x, int y) a, (int x, int y) b)> IncidentEdges((int x, int y) vertex)
         {
-            if (matrix[vertex.x, vertex.y].down) yield return (vertex, (vertex.x, vertex.y + 1));
-            if (matrix[vertex.x, vertex.y].right) yield return (vertex, (vertex.x + 1, vertex.y));
-            if (vertex.x > 0 && matrix[vertex.x - 1, vertex.y].right) yield return (vertex, (vertex.x - 1, vertex.y));
-            if (vertex.y > 0 && matrix[vertex.x, vertex.y - 1].down) yield return (vertex, (vertex.x, vertex.y - 1));
+            foreach (var neighbor in Neighbors(vertex))
+            {
+                yield return (vertex, neighbor);
+            }
         }
 
         public Image Visualize(int wallSize = 2, int cellSize = 20)
