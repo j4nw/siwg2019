@@ -42,7 +42,7 @@ namespace AlgorithmsLibrary.MinAndMax
                 {
                     if (_edges.Contains(item))
                         continue;
-
+                    
                     value = Math.Max(value, item.Weight);
                     if (value != _oldValue)
                         ResultVertex = vertex;
@@ -75,7 +75,6 @@ namespace AlgorithmsLibrary.MinAndMax
                     value = Math.Min(value, nextValue);
                 }
 
-                ResultVertex = vertex;
                 return value;
             }
         }
