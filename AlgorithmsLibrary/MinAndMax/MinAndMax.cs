@@ -9,24 +9,37 @@ namespace AlgorithmsLibrary.MinAndMax
 {
     public class MinAndMax<TVertex, TEdge> where TEdge : IEdge<TVertex>
     {
-        public IGraph<TVertex, IEdge<TVertex>> IG { get; set; }
+        private Stack<TEdge> _edges;
+        private int _depth;
+
         public TVertex ResultVertex { get; set; }
 
-        public MinAndMax(IGraph<TVertex, IEdge<TVertex>> ig)
+        public MinAndMax(int depth)
         {
-            IG = ig;
+            _depth = depth;
+            _edges = new Stack<TEdge>();
         }
 
-        public double FindMinAndMax(TVertex vertex, double value, int depth, bool maximizingPlayer)
-        {
+    public double FindMinAndMax(IGraph<TVertex, TEdge> iG, TVertex vertex, double value, int depth, bool maximizingPlayer) 
+    {
+            if (depth == _depth)
+                return value;
+
             if (maximizingPlayer)
             {
                 value = Double.MinValue;
 
-                foreach (var item in IG.IncidentEdges(vertex))
+                var edges = iG.IncidentEdges(vertex);
+
+                foreach (var item in edges)
                 {
-                    value = item.Weight;
-                    value = Math.Max(value, FindMinAndMax(item.End, 0, depth - 1, false));
+                    if (_edges.Contains(item))
+                        continue;
+
+                    value = Math.Max(value, item.Weight);
+                    _edges.Push(item);
+                    var nextValue = FindMinAndMax(iG, item.End, value, depth + 1, false);
+                    value = Math.Max(value, nextValue);
                 }
 
                 ResultVertex = vertex;
@@ -35,10 +48,16 @@ namespace AlgorithmsLibrary.MinAndMax
             else
             {
                 value = Double.MaxValue;
-                foreach (var item in IG.IncidentEdges(vertex))
+                var edges = iG.IncidentEdges(vertex);
+
+                foreach (var item in edges)
                 {
-                    value = item.Weight;
-                    value = Math.Min(value, FindMinAndMax(item.End, 0, depth - 1, true));
+                    if (_edges.Contains(item))
+                        continue;
+
+                    value = Math.Min(value, item.Weight);
+                    _edges.Push(item);
+                    value = Math.Min(value, FindMinAndMax(iG, item.End, value, depth + 1, true));
                 }
 
                 ResultVertex = vertex;
