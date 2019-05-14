@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AlgorithmsLibrary.TreeSearchWithQueue
 {
-    public class PriorityQueue<Element> : IFringe<Element>
+    public class PriorityQueue<Element>
     {
         private List<Element> queue = new List<Element>();
 
