@@ -8,23 +8,37 @@ namespace AlgorithmsLibrary.TreeSearchWithQueue
 {
     public static class TreeSearchWithQueue
     {
-        public static Node<State> Search<State>(IProblem<State> problem, IFringe<Node<State>> fringe, bool enableAStarMethod = false)
+        public static Node<State> BFS<State>(IProblem<State> problem)
         {
-            if (enableAStarMethod)
-            {
-                fringe.GetCost = (Node<State> node) => { return problem.EstimatedCostToGoal(node.state) + problem.GetCurrentCost(node.state, node.node.state, node.CurrentCost); };
-            }
-            else
-            {
-                fringe.GetCost = (Node<State> node) => { return problem.EstimatedCostToGoal(node.state); };
-            }
+            PriorityQueue<Node<State>> fringe = new PriorityQueue<Node<State>>();
 
+            fringe.GetCost = (Node<State> node) =>
+            {
+                return problem.EstimatedCostToGoal(node.state);
+            };
+
+            return Search(problem, fringe);
+        }
+
+        public static Node<State> AStar<State>(IProblem<State> problem)
+        {
+            PriorityQueue<Node<State>> fringe = new PriorityQueue<Node<State>>();
+
+            fringe.GetCost = (Node<State> node) =>
+            {
+                return problem.EstimatedCostToGoal(node.state) + problem.GetCurrentCost(node.state, node.node.state, node.CurrentCost);
+            };
+
+            return Search(problem, fringe);
+        }
+
+        private static Node<State> Search<State>(IProblem<State> problem, PriorityQueue<Node<State>> fringe)
+        {
             fringe.Add(new Node<State>(problem.InitialState, null));
 
             int a = 1;
             while (!fringe.IsEmpty)
             {
-
                 Node<State> node = fringe.Pop();
 
                 if (problem.IsGoal(node.state)) return node;
@@ -34,7 +48,7 @@ namespace AlgorithmsLibrary.TreeSearchWithQueue
                     if (!node.OnPathToRoot(state, problem.StateCompare))
                     {
                         fringe.Add(new Node<State>(state, node, problem.GetCurrentCost(state, node.state, node.CurrentCost)));
-                        if (rownyRzad(a)) problem.Print(state);
+                        //if (rownyRzad(a)) problem.Print(state);
                         a++;
                     }
                 }
@@ -42,11 +56,11 @@ namespace AlgorithmsLibrary.TreeSearchWithQueue
             return null;
         }
 
-        private static bool rownyRzad(int a)
+        /*private static bool rownyRzad(int a)
         {
             if (a == 1) return true;
             if (a % 10 != 0) return false;
             return rownyRzad(a / 10);
-        }
+        }*/
     }
 }
