@@ -44,6 +44,7 @@
     <Compile Include="Kruskal\Kruskal.cs" />
     <Compile Include="Kruskal\QuickSort.cs" />
     <Compile Include="Kruskal\UnionFind.cs" />
+    <Compile Include="MinAndMax\MinAndMax.cs" />
     <Compile Include="Prim\BinaryHeap.cs" />
     <Compile Include="Prim\Prim.cs" />
     <Compile Include="TreeSearchWithQueue\IFringe.cs" />
