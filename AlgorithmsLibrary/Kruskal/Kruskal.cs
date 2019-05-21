@@ -51,7 +51,6 @@ namespace Kruskal
             }
 
             return MST;        
-        }
-       
+        }      
     }
 }
