@@ -1,4 +1,5 @@
-﻿using Core;
+﻿using AlgorithmsLibrary.PrimiKruskal;
+using Core;
 using System.Collections.Generic;
 using System.Linq;
 

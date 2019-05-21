@@ -1,4 +1,4 @@
-﻿using Core;
+﻿using AlgorithmsLibrary.PrimiKruskal;
 
 namespace Prim
 {
