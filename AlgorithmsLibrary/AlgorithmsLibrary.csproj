@@ -41,6 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DijkstraAlgorithm\DijkstraAlgorithm.cs" />
+    <Compile Include="DijkstraAlgorithm\Edge.cs" />
+    <Compile Include="DijkstraAlgorithm\Graph.cs" />
+    <Compile Include="DijkstraAlgorithm\Node.cs" />
     <Compile Include="Kruskal\Kruskal.cs" />
     <Compile Include="Kruskal\QuickSort.cs" />
     <Compile Include="Kruskal\UnionFind.cs" />
