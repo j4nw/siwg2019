@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labirynths", "Labirynths\La
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labirynths.CLI", "Labirynths.CLI\Labirynths.CLI.csproj", "{5C30301A-BFBE-4D13-9433-2CD93AF0B100}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphToImage", "GraphToImage\GraphToImage.csproj", "{C2CA6540-B4B8-44D4-B83C-B761BFFB4FB8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{5C30301A-BFBE-4D13-9433-2CD93AF0B100}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C30301A-BFBE-4D13-9433-2CD93AF0B100}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C30301A-BFBE-4D13-9433-2CD93AF0B100}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2CA6540-B4B8-44D4-B83C-B761BFFB4FB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2CA6540-B4B8-44D4-B83C-B761BFFB4FB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2CA6540-B4B8-44D4-B83C-B761BFFB4FB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2CA6540-B4B8-44D4-B83C-B761BFFB4FB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
