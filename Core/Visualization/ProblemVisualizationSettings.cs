@@ -38,6 +38,15 @@ namespace Core
             return -1;            
         }
 
+        public float GetFloatValue(string key)
+        {
+            foreach (var item in Dict)
+            {
+                if (item.Key == key) return float.Parse(item.Val);
+            }
+            return -1;
+        }
+
         public double GetDoubleValue(string key)
         {
             foreach (var item in Dict)

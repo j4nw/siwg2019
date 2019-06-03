@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.421
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{5DEB16AE-43E6-4430-A566-652BC9E39609}"
 EndProject
@@ -18,6 +18,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labirynths.CLI", "Labirynths.CLI\Labirynths.CLI.csproj", "{5C30301A-BFBE-4D13-9433-2CD93AF0B100}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphToImage", "GraphToImage\GraphToImage.csproj", "{C2CA6540-B4B8-44D4-B83C-B761BFFB4FB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerlinNoise", "PerlinNoise.cs\PerlinNoise.csproj", "{64579C0A-3B69-457D-9FF3-AA5ECAC615F3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HOW_TO_ADD_PROJECT_TO_VISUALIZATION_APP", "HOW_TO_ADD_PROJECT_TO_VISUALIZATION_APP", "{4C3B5565-2C0D-4730-B122-06A061CA972C}"
+	ProjectSection(SolutionItems) = preProject
+		README.txt = README.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +64,10 @@ Global
 		{C2CA6540-B4B8-44D4-B83C-B761BFFB4FB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2CA6540-B4B8-44D4-B83C-B761BFFB4FB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2CA6540-B4B8-44D4-B83C-B761BFFB4FB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64579C0A-3B69-457D-9FF3-AA5ECAC615F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64579C0A-3B69-457D-9FF3-AA5ECAC615F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64579C0A-3B69-457D-9FF3-AA5ECAC615F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64579C0A-3B69-457D-9FF3-AA5ECAC615F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -33,7 +33,7 @@ namespace VisualizationWPFApp
 
             // PROBLEM CLASSES LIST
             ProblemList.Add(new ExampleProblemVisualization());
-            ProblemList.Add(new ExampleProblemVisualization());
+            ProblemList.Add(new PerlinNoise.PerlinNoise());
             // ---
             SelectedProblem = ProblemList[0];           
         }

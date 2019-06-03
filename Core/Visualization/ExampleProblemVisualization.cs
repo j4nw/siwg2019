@@ -3,7 +3,7 @@
 namespace Core
 {
     // ADD REFERENCE IN VisualizationWPFApp TO PROBLEM PROJECT
-    // ADD PROBLEM CLASS TO LoadProblemList() METHOD IN VisualizationWPFApp.Model.ProblemsModel
+    // ADD PROBLEM CLASS TO LoadProblemList() METHOD IN VisualizationWPFApp.Model
 
     public class ExampleProblemVisualization : ProblemVisualization
     {
