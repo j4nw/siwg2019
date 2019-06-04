@@ -18,6 +18,9 @@ namespace PerlinNoise
             Settings.Add("Width", "640");
             Settings.Add("Height", "480");
             Settings.Add("Grid Cell Size", "200");
+            Settings.Add("Red 0/1", "1");
+            Settings.Add("Green 0/1", "0");
+            Settings.Add("Blue 0/1", "0");
         }
 
         public override System.Drawing.Bitmap Visualization
@@ -26,6 +29,9 @@ namespace PerlinNoise
             {
                 int dim1 = Settings.GetIntValue("Width");
                 int dim2 = Settings.GetIntValue("Height");
+                int r = Settings.GetIntValue("Red 0/1");
+                int g = Settings.GetIntValue("Green 0/1");
+                int b = Settings.GetIntValue("Blue 0/1");
 
                 DrawGradients();
                 CreateNoise();
@@ -36,7 +42,10 @@ namespace PerlinNoise
                 {
                     for (int j = 0; j < dim2; j++)
                     {
-                        bmp.SetPixel(i, j, System.Drawing.Color.FromArgb((int)((NoiseTable[i, j] + 1) * 128), 0, 0));
+                        bmp.SetPixel(i, j, System.Drawing.Color.FromArgb(
+                            (int)((NoiseTable[i, j] + 1) * 128 * r),
+                            (int)((NoiseTable[i, j] + 1) * 128 * g),
+                            (int)((NoiseTable[i, j] + 1) * 128 * b)));
                     }
                 }
 

@@ -1,25 +1,59 @@
 ﻿using Core;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace VisualizationWPFApp
 {
     public class ViewModel : INotifyPropertyChanged
     {
+        private DispatcherTimer timer = null;
+        private string playStop;
+        private int interval;
         private AddVisualizationWindow visualWindow = null;
         private Model model = new Model();
         private ICommand addNewVisualizationCommand = null;
         private ICommand submitModalCommand = null;
+        private ICommand onCloseCommand = null;
         private ICommand removeRecentCommand = null;
         private ICommand removeAllRecentCommand = null;
         private ICommand hideAllCommand = null;
         private ICommand updateCommand = null;
+        private ICommand playStopCommand = null;
         private int historyCount = 0;
 
         public ObservableCollection<ProblemVisualization> ProblemList { get { return model.ProblemList; } }
         public ObservableCollection<ProblemVisualization> RecentList { get { return model.RecentList; } }
+
+        public int Interval
+        {
+            get
+            {
+                return interval;
+            }
+            set
+            {
+                interval = value;
+                timer.Interval = TimeSpan.FromMilliseconds(interval);
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Interval"));
+            }
+        }
+
+        public string PlayStop
+        {
+            get
+            {
+                return playStop;
+            }
+            set
+            {
+                playStop = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("PlayStop"));
+            }
+        }
 
         public ProblemVisualization SelectedProblem
         {
@@ -55,6 +89,14 @@ namespace VisualizationWPFApp
             }
         }
 
+        public ViewModel()
+        {
+            timer = new DispatcherTimer();
+            Interval = 30;
+            timer.Tick += tick;
+            PlayStop = "Play";
+        }
+
         public ICommand AddNewVisualizationCommand
         {
             get
@@ -66,7 +108,7 @@ namespace VisualizationWPFApp
                         model.LoadProblemList();
                         visualWindow = new AddVisualizationWindow();
                         visualWindow.DataContext = this;
-                        visualWindow.Show();
+                        visualWindow.Show();                   
                     });
                 }
                 return addNewVisualizationCommand;
@@ -136,11 +178,7 @@ namespace VisualizationWPFApp
                 {
                     hideAllCommand = new RelayCommand(m =>
                     {
-                        foreach (var item in RecentList)
-                        {
-                            item.Visible = false;
-                        }
-                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Visualization"));
+                        hideAll();
                     });
                 }
                 return hideAllCommand;
@@ -161,7 +199,45 @@ namespace VisualizationWPFApp
                 return updateCommand;
             }
         }
+
+        public ICommand PlayStopCommand
+        {
+            get
+            {
+                if (playStopCommand == null)
+                {
+                    playStopCommand = new RelayCommand(item =>
+                    {
+                        if (!timer.IsEnabled)
+                        {
+                            PlayStop = "Stop";
+                            timer.Start();
+                        }
+                        else
+                        {
+                            PlayStop = "Play";
+                            timer.Stop();
+                        }
+                    });
+                }
+                return playStopCommand;
+            }
+        }
         
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private void tick(object sender, EventArgs e)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Visualization"));
+        }
+
+        private void hideAll()
+        {
+            foreach (var item in RecentList)
+            {
+                item.Visible = false;
+            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Visualization"));
+        }
     }
 }

@@ -27,7 +27,7 @@
         </Grid.RowDefinitions>
         <Image Height="550" Width="550" Grid.RowSpan="2" Margin="13,13,13,13" Source="{Binding Visualization, Converter={StaticResource BitmapToBitmapSourceConverter}}"/>
         <TextBlock Grid.Column="1" Text="Recent visualizations:" FontSize="20" FontFamily="Candara" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,15,10,10"/>
-        <ListBox x:Name="recent" Grid.Column="2" Margin="0,50,10,100" ScrollViewer.VerticalScrollBarVisibility="Auto"
+        <ListBox x:Name="recent" Grid.Column="2" Margin="0,50,10,130" ScrollViewer.VerticalScrollBarVisibility="Auto"
                  ItemsSource="{Binding RecentList}" SelectedItem="{Binding SelectedRecent, Mode=TwoWay}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -43,11 +43,13 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Grid.Column="1" Content="Add new visualization" Height="40" VerticalAlignment="Bottom" Margin="0,10,10,50" Command="{Binding AddNewVisualizationCommand}" />
-        <Button Grid.Column="1" Grid.Row="0" Content="Hide all" Height="25" VerticalAlignment="Bottom" Margin="0,0,105,10" Command="{Binding HideAllCommand}" />
-        <Button Grid.Column="1" Grid.Row="0" Content="Clear Recent" Height="25" VerticalAlignment="Bottom" Margin="105,30,10,10" Command="{Binding RemoveAllRecentCommand}" />
+        <Button Grid.Column="1" Content="Add new visualization" Height="30" VerticalAlignment="Bottom" Margin="0,10,10,95" Command="{Binding AddNewVisualizationCommand}" />
+        <Button Grid.Column="1" Grid.Row="0" Content="{Binding PlayStop}" Height="25" VerticalAlignment="Bottom" Margin="0,30,10,65" Command="{Binding PlayStopCommand}" />
+        <Slider Grid.Column="1" Grid.Row="0" VerticalAlignment="Bottom" Margin="0,30,10,35" Minimum="30" Maximum="1000" Value="{Binding Interval, Mode=TwoWay}" />
+        <Button Grid.Column="1" Grid.Row="0" Content="Hide all" Height="25" VerticalAlignment="Bottom" Margin="0,0,105,7" Command="{Binding HideAllCommand}" />
+        <Button Grid.Column="1" Grid.Row="0" Content="Clear Recent" Height="25" VerticalAlignment="Bottom" Margin="105,30,10,7" Command="{Binding RemoveAllRecentCommand}" />
         <TextBlock Grid.Column="1" Grid.Row="2" Text="Settings:" FontSize="20" FontFamily="Candara" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,10,10,10"/>
-        <ListBox x:Name="settings" Grid.Column="1" Grid.Row="2" Margin="0,40,10,10" BorderBrush="Gray" BorderThickness="1"
+        <ListBox x:Name="settings" Grid.Column="1" Grid.Row="2" Margin="0,40,10,35" BorderBrush="Gray" BorderThickness="1"
                  ItemsSource="{Binding SelectedRecent.Settings.Dict}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -62,6 +64,6 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Grid.Column="1" Grid.Row="1" Content="Odśwież ↺" Height="20" VerticalAlignment="Bottom" Margin="40,0,40,20" Command="{Binding UpdateCommand}" />
+        <Button Grid.Column="1" Grid.Row="1" Content="Odśwież ↺" Height="20" VerticalAlignment="Bottom" Margin="0,0,10,10" Command="{Binding UpdateCommand}" />
     </Grid>
 </Window>

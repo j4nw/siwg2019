@@ -16,3 +16,7 @@
 4. Aby problem by³ widoczny pod konkretn¹ nazw¹ nale¿y przypisaæ j¹ do w³asnoœci "Name"
 5. Najlepiej, aby konstruktor g³ownej klasy by³ bezargumentowy i definiowa³ parametry w "Settings" wraz z wartoœciami domyslnymi.
 6. W³aœciwoœæ "Visualization" - nale¿y w niej zdefiniowaæ zwracany przez klasê obraz bitmapy, który chcemy wyœwietlaæ w aplikacji.
+	* Mo¿na wyœwietlaæ tak¿e animacje. Przycisk "Play" w aplikacji spowoduje wywo³ywanie w³aœciwoœci "Visualization" co krótki odstêp
+		czasu, w zwi¹zku z czym mo¿na utworzyæ zmienn¹ statyczn¹ "licznik", inkrementowaæ go z ka¿dym wywo³aniem get tej w³aœciwoœci
+		i generowaæ bitmapy w zale¿noœci od tego licznika u¿ywaj¹c np. modulo.
+	* Ustawienie w "DrawRect" koloru na "Dynamic" i naciœniêcie Play, powoduje animacjê ze zmian¹ koloru.
