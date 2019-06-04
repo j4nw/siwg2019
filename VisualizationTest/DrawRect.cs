@@ -1,23 +1,21 @@
-﻿using System.Drawing;
+﻿using Core;
+using System.Drawing;
 
-namespace Core
+namespace VisualizationTest
 {
-    // ADD REFERENCE IN VisualizationWPFApp TO PROBLEM PROJECT
-    // ADD PROBLEM CLASS TO LoadProblemList() METHOD IN VisualizationWPFApp.Model
-
-    public class ExampleProblemVisualization : ProblemVisualization
+    public class DrawRect : ProblemVisualization
     {
-        public ExampleProblemVisualization()
+        public DrawRect()
         {
             // name visible on list
-            Name = "ShowColorRectangle";
+            Name = "Draw Rectangle";
 
             // default settings as strings
             // Available methods in 'Settings' Class: Add, Remove, GetStringValue, GetIntValue (parse from string), GetDoubleValue (parse from string)
             Settings.Add("Width", "30");
             Settings.Add("Height", "30");
-            Settings.Add("Color", "Blue");            
-        } 
+            Settings.Add("Color", "Blue");
+        }
 
         public override Bitmap Visualization // get image for visualization
         {

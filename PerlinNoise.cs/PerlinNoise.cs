@@ -15,17 +15,17 @@ namespace PerlinNoise
         public PerlinNoise()
         {
             Name = "Perlin Noise";
-            Settings.Add("dim1", "640");
-            Settings.Add("dim2", "480");
-            Settings.Add("gridCellSize", "200");
+            Settings.Add("Width", "640");
+            Settings.Add("Height", "480");
+            Settings.Add("Grid Cell Size", "200");
         }
 
         public override System.Drawing.Bitmap Visualization
         {
             get
             {
-                int dim1 = Settings.GetIntValue("dim1");
-                int dim2 = Settings.GetIntValue("dim2");
+                int dim1 = Settings.GetIntValue("Width");
+                int dim2 = Settings.GetIntValue("Height");
 
                 DrawGradients();
                 CreateNoise();
@@ -48,9 +48,9 @@ namespace PerlinNoise
 
         private void CreateNoise()
         {
-            int dim1 = Settings.GetIntValue("dim1");
-            int dim2 = Settings.GetIntValue("dim2");
-            float gridCellSize = Settings.GetFloatValue("gridCellSize"); 
+            int dim1 = Settings.GetIntValue("Width");
+            int dim2 = Settings.GetIntValue("Height");
+            float gridCellSize = Settings.GetFloatValue("Grid Cell Size"); 
 
             NoiseTable = new float[dim1, dim2];
 
@@ -123,9 +123,9 @@ namespace PerlinNoise
 
         private void DrawGradients()
         {
-            int dim1 = Settings.GetIntValue("dim1");
-            int dim2 = Settings.GetIntValue("dim2");
-            float gridCellSize = Settings.GetFloatValue("gridCellSize");
+            int dim1 = Settings.GetIntValue("Width");
+            int dim2 = Settings.GetIntValue("Height");
+            float gridCellSize = Settings.GetFloatValue("Grid Cell Size");
 
             var width = (int)Math.Ceiling(dim1 / gridCellSize) + 1;
             var height = (int)Math.Ceiling(dim2 / gridCellSize) + 1;

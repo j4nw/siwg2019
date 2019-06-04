@@ -116,6 +116,10 @@
       <Project>{64579c0a-3b69-457d-9ff3-aa5ecac615f3}</Project>
       <Name>PerlinNoise</Name>
     </ProjectReference>
+    <ProjectReference Include="..\VisualizationTest\VisualizationTest.csproj">
+      <Project>{2d59d8b9-7a3a-48d5-b816-0dfa1b167f00}</Project>
+      <Name>VisualizationTest</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

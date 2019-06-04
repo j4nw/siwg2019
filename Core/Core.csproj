@@ -46,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Visualization\ProblemVisualization.cs" />
-    <Compile Include="Visualization\ExampleProblemVisualization.cs" />
     <Compile Include="Visualization\ProblemVisualizationSettings.cs" />
     <Compile Include="Visualizer.cs" />
     <Compile Include="IBoard.cs" />

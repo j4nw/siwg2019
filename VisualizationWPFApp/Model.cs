@@ -32,7 +32,7 @@ namespace VisualizationWPFApp
             ProblemList.Clear();
 
             // PROBLEM CLASSES LIST
-            ProblemList.Add(new ExampleProblemVisualization());
+            ProblemList.Add(new VisualizationTest.DrawRect());
             ProblemList.Add(new PerlinNoise.PerlinNoise());
             // ---
             SelectedProblem = ProblemList[0];           

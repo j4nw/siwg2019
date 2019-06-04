@@ -83,8 +83,9 @@ namespace VisualizationWPFApp
                     {
                         SelectedProblem.Name += " " + historyCount;
                         historyCount++;
-                        RecentList.Add(SelectedProblem);
+                        RecentList.Add(SelectedProblem);                        
                         visualWindow.Close();
+                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Visualization"));
                     });
                 }
                 return submitModalCommand;

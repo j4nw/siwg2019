@@ -1,16 +1,29 @@
-﻿using System.Drawing;
+﻿using System.ComponentModel;
+using System.Drawing;
 
 namespace Core
 {
-    public abstract class ProblemVisualization
+    public abstract class ProblemVisualization : INotifyPropertyChanged
     {
+        protected bool visible;
         public ProblemVisualizationSettings Settings { get; set; }        
         
         public abstract Bitmap Visualization { get; }
 
         public string Name { get; set; }
 
-        public bool Visible { get; set; }
+        public bool Visible
+        {
+            get
+            {
+                return visible;
+            }
+            set
+            {
+                visible = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Visible"));
+            }
+        }
 
         public override string ToString()
         {
@@ -21,7 +34,9 @@ namespace Core
         {
             Settings = new ProblemVisualizationSettings();
             Name = "Default Problem";
-            Visible = false;
+            Visible = true;
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }
