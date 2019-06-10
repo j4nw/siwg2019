@@ -97,10 +97,10 @@ namespace Labirynths
             {
                 var width = Settings.GetIntValue("Width");
                 var height = Settings.GetIntValue("Height");
-                var labirynth = Generate(width, height);
+                var maze = Generate(width, height);
                 var cellSize = Settings.GetIntValue("Cell Size");
                 var wallSize = Settings.GetIntValue("Wall Size");
-                var image = labirynth.Visualize(wallSize, cellSize);
+                var image = maze.Visualize(wallSize, cellSize);
                 return new Bitmap(image);
             }
         }

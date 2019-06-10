@@ -1,11 +1,22 @@
 ﻿using System;
+using System.Drawing;
+using Core;
 
 namespace Labirynths
 {
-    public class RecursiveDivision : ILabirynthGenerationMethod
+    public class RecursiveDivision : ProblemVisualization, ILabirynthGenerationMethod
     {
         private Labirynth labirynth;
         private Random random;
+
+        public RecursiveDivision()
+        {
+            Name = "Maze Generation: Recursive Division";
+            Settings.Add("Width", "10");
+            Settings.Add("Height", "10");
+            Settings.Add("Wall Size", "2");
+            Settings.Add("Cell Size", "20");
+        }
 
         public Labirynth Generate(int width, int height)
         {
@@ -73,6 +84,20 @@ namespace Labirynths
 
                 Divide(x, y, wWest, h);
                 Divide(x + wWest, y, wEast, h);
+            }
+        }
+
+        public override Bitmap Visualization
+        {
+            get
+            {
+                var width = Settings.GetIntValue("Width");
+                var height = Settings.GetIntValue("Height");
+                var maze = Generate(width, height);
+                var cellSize = Settings.GetIntValue("Cell Size");
+                var wallSize = Settings.GetIntValue("Wall Size");
+                var image = maze.Visualize(wallSize, cellSize);
+                return new Bitmap(image);
             }
         }
     }
