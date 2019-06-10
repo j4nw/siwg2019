@@ -36,6 +36,7 @@ namespace VisualizationWPFApp
             ProblemList.Add(new PerlinNoise.PerlinNoise());
             ProblemList.Add(new Labirynths.RandomizedDepthFirstSearch());
             ProblemList.Add(new Labirynths.RecursiveDivision());
+            ProblemList.Add(new CellularAutomata.Elementary());
             // ---
             SelectedProblem = ProblemList[0];           
         }

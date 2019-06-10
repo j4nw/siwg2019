@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28922.388
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.645
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{5DEB16AE-43E6-4430-A566-652BC9E39609}"
 EndProject
@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HOW_TO_ADD_PROJECT_TO_VISUA
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisualizationTest", "VisualizationTest\VisualizationTest.csproj", "{2D59D8B9-7A3A-48D5-B816-0DFA1B167F00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CellularAutomata", "CellularAutomata\CellularAutomata.csproj", "{37EC9B5D-43EC-46F3-808A-CCB03F6B18EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -74,6 +76,10 @@ Global
 		{2D59D8B9-7A3A-48D5-B816-0DFA1B167F00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D59D8B9-7A3A-48D5-B816-0DFA1B167F00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D59D8B9-7A3A-48D5-B816-0DFA1B167F00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37EC9B5D-43EC-46F3-808A-CCB03F6B18EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37EC9B5D-43EC-46F3-808A-CCB03F6B18EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37EC9B5D-43EC-46F3-808A-CCB03F6B18EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37EC9B5D-43EC-46F3-808A-CCB03F6B18EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

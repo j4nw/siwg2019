@@ -108,6 +108,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CellularAutomata\CellularAutomata.csproj">
+      <Project>{37EC9B5D-43EC-46F3-808A-CCB03F6B18EC}</Project>
+      <Name>CellularAutomata</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{5deb16ae-43e6-4430-a566-652bc9e39609}</Project>
       <Name>Core</Name>
