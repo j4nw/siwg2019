@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core;
@@ -10,6 +11,7 @@ namespace Labirynths
         private Random random;
         private Labirynth labirynth;
         private bool[,] visited;
+        private IEnumerator<Labirynth> sequence;
 
         public RandomizedDepthFirstSearch()
         {
@@ -18,6 +20,8 @@ namespace Labirynths
             Settings.Add("Height", "10");
             Settings.Add("Wall Size", "2");
             Settings.Add("Cell Size", "20");
+            Settings.Add("Cell Size", "20");
+            Settings.Add("Step By Step (y/n)", "y");
         }
 
         public Labirynth Generate(int width, int height)
@@ -29,14 +33,14 @@ namespace Labirynths
             var x = random.Next(width);
             var y = random.Next(height);
 
-            DFS(x, y);
+            DFS(x, y).ToList(); // ToList guarantees IEnumerable is exhausted and the DFS is performed
 
             return labirynth;
         }
 
-        void DFS(int x, int y)
+        IEnumerable<Labirynth> DFS(int x, int y)
         {
-            if (visited[x, y]) return;
+            if (visited[x, y]) yield return null;
             visited[x, y] = true;
 
             var adjacents = labirynth
@@ -87,7 +91,11 @@ namespace Labirynths
                     }
                 }
 
-                DFS(adjacent.x, adjacent.y);
+                yield return labirynth;
+                foreach (var m in DFS(adjacent.x, adjacent.y))
+                {
+                    yield return m;
+                }
             }
         }
 
@@ -97,11 +105,32 @@ namespace Labirynths
             {
                 var width = Settings.GetIntValue("Width");
                 var height = Settings.GetIntValue("Height");
-                var maze = Generate(width, height);
                 var cellSize = Settings.GetIntValue("Cell Size");
                 var wallSize = Settings.GetIntValue("Wall Size");
-                var image = maze.Visualize(wallSize, cellSize);
-                return new Bitmap(image);
+                var showStepByStep = Settings.GetStringValue("Step By Step (y/n)");
+                if (showStepByStep == "n")
+                {
+                    var maze = Generate(width, height);
+                    return new Bitmap(maze.Visualize(wallSize, cellSize));
+                }
+
+                if (sequence == null)
+                {
+
+                    random = new Random();
+                    labirynth = new Labirynth(width, height);
+                    visited = new bool[width, height];
+
+                    var x = random.Next(width);
+                    var y = random.Next(height);
+
+                    sequence = DFS(x, y).GetEnumerator();
+                }
+
+                sequence.MoveNext();
+                var currentMaze = sequence.Current;
+                return new Bitmap(currentMaze.Visualize(wallSize, cellSize));
+
             }
         }
     }
