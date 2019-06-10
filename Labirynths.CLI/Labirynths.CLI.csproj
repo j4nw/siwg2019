@@ -51,6 +51,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{5DEB16AE-43E6-4430-A566-652BC9E39609}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Labirynths\Labirynths.csproj">
       <Project>{6FA32B86-7220-488E-B901-1243A96610EA}</Project>
       <Name>Labirynths</Name>

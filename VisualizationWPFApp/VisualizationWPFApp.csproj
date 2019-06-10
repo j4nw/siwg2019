@@ -112,6 +112,10 @@
       <Project>{5deb16ae-43e6-4430-a566-652bc9e39609}</Project>
       <Name>Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Labirynths\Labirynths.csproj">
+      <Project>{6FA32B86-7220-488E-B901-1243A96610EA}</Project>
+      <Name>Labirynths</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PerlinNoise.cs\PerlinNoise.csproj">
       <Project>{64579c0a-3b69-457d-9ff3-aa5ecac615f3}</Project>
       <Name>PerlinNoise</Name>

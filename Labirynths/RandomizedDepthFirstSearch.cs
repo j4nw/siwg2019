@@ -1,13 +1,24 @@
 ﻿using System;
+using System.Drawing;
 using System.Linq;
+using Core;
 
 namespace Labirynths
 {
-    public class RandomizedDepthFirstSearch : ILabirynthGenerationMethod
+    public class RandomizedDepthFirstSearch : ProblemVisualization, ILabirynthGenerationMethod
     {
         private Random random;
         private Labirynth labirynth;
         private bool[,] visited;
+
+        public RandomizedDepthFirstSearch()
+        {
+            Name = "Maze Generation: Randomized DFS";
+            Settings.Add("Width", "10");
+            Settings.Add("Height", "10");
+            Settings.Add("Wall Size", "2");
+            Settings.Add("Cell Size", "20");
+        }
 
         public Labirynth Generate(int width, int height)
         {
@@ -77,6 +88,20 @@ namespace Labirynths
                 }
 
                 DFS(adjacent.x, adjacent.y);
+            }
+        }
+
+        public override Bitmap Visualization
+        {
+            get
+            {
+                var width = Settings.GetIntValue("Width");
+                var height = Settings.GetIntValue("Height");
+                var labirynth = Generate(width, height);
+                var cellSize = Settings.GetIntValue("Cell Size");
+                var wallSize = Settings.GetIntValue("Wall Size");
+                var image = labirynth.Visualize(wallSize, cellSize);
+                return new Bitmap(image);
             }
         }
     }

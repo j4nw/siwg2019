@@ -34,6 +34,7 @@ namespace VisualizationWPFApp
             // PROBLEM CLASSES LIST
             ProblemList.Add(new VisualizationTest.DrawRect());
             ProblemList.Add(new PerlinNoise.PerlinNoise());
+            ProblemList.Add(new Labirynths.RandomizedDepthFirstSearch());
             // ---
             SelectedProblem = ProblemList[0];           
         }
