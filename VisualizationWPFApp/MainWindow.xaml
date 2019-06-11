@@ -53,6 +53,7 @@
         <Button Grid.Column="1" Grid.Row="0" Content="Clear Recent" Height="25" VerticalAlignment="Bottom" Margin="105,30,10,7" Command="{Binding RemoveAllRecentCommand}" />
         <TextBlock Grid.Column="1" Grid.Row="2" Text="Settings:" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,10,10,10"/>
         <ListBox x:Name="settings" Grid.Column="1" Grid.Row="2" Margin="0,40,10,35" BorderBrush="Gray" BorderThickness="1"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
                  ItemsSource="{Binding SelectedRecent.Settings.Dict}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -67,6 +68,6 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Grid.Column="1" Grid.Row="1" Content="Odśwież ↺" Height="20" VerticalAlignment="Bottom" Margin="0,0,10,10" Command="{Binding UpdateCommand}" />
+        <Button Grid.Column="1" Grid.Row="1" Content="Refresh ↺" Height="20" VerticalAlignment="Bottom" Margin="0,0,10,10" Command="{Binding UpdateCommand}" />
     </Grid>
 </Window>
