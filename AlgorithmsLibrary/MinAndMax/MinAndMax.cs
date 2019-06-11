@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 namespace AlgorithmsLibrary.MinAndMax
 {
     // Example:
-    //            var minMax = new MinAndMax<Vertex, Edge>(2, graph);
-    //              var resultValue = minMax.FindMinAndMax(v0, 0, 0, true);
+    //            var minMax = new MinAndMax<Vertex, Edge>(depth, graph);
+    //              var resultValue = minMax.FindMinAndMax(vertex0, 0, 0, true);
     //              var resultVertex = minMax.ResultVertex;
 
     public class MinAndMax<TVertex, TEdge> where TEdge : IEdgeExtension<TVertex>

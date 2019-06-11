@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace AlgorithmsLibrary.MinAndMax
 {
-    public interface IEdgeExtension<TVertex> : IEdge<TVertex>
+    public interface IEdgeExtension<TVertex>
     {
+        TVertex Start { get; }
+        TVertex End { get; }
         double WeightExtension { get; set; }
     }
 }
