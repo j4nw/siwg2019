@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:VisualizationWPFApp"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style x:Key="Font" TargetType="{x:Type Window}">
+            <Setter Property="FontFamily" Value="Candara" />
+        </Style>
     </Application.Resources>
 </Application>
