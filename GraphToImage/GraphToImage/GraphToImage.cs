@@ -9,41 +9,136 @@ using System.Windows.Forms;
 
 namespace GraphToImage
 {
-    class GraphToImage
+    public class GraphToImage : ProblemVisualization
     {
         Graph graph;
         int width = 640;
         int height = 800;
         int nodeRadius = 30;
 
-        public GraphToImage(Graph graph)
+        public override Bitmap Visualization
         {
-            this.graph = graph;
-            
+            get
+            {
+                return Start(Settings.GetStringValue("Name"));
+            }
         }
 
-        public void Start(string filename)
+        public GraphToImage()//Graph graph)
         {
+            this.graph = new Graph(5);
+            this.graph.CreateRandomGraph();
+            Name = "GraphVisualisation";
+            Settings.Add("Width", "640");
+            Settings.Add("Height", "480");
+            Settings.Add("NodeRadius", "30");
+            Settings.Add("NodeDistanceFromCenter", "200");
+            Settings.Add("NodeColour", "Red");
+            Settings.Add("LineColour", "Blue");
+            Settings.Add("LabelColour", "White");
+        }
+
+        public Bitmap Start(string filename)
+        {
+            width = Settings.GetIntValue("Width");
+            height = Settings.GetIntValue("Height");
+            nodeRadius = Settings.GetIntValue("NodeRadius");
             Bitmap bmp = new Bitmap(width, height);
             using (Graphics g = Graphics.FromImage(bmp))
             {
-                PositionProvider pp = new PositionProvider(graph.nodeList.Count, 200);
-
-                using (Pen p = new Pen(Color.Red))
+                PositionProvider pp = new PositionProvider(graph.nodeList.Count, Settings.GetIntValue("NodeDistanceFromCenter"));
+                switch (Settings.GetStringValue("LineColour"))
                 {
-                    DrawLine(p, pp, g);
+                    case "Red":
+                        using (Pen p = new Pen(Color.Red))
+                        {
+                            DrawLine(p, pp, g);
+                        }
+                        break;
+                    case "Green":
+                        using (Pen p = new Pen(Color.Green))
+                        {
+                            DrawLine(p, pp, g);
+                        }
+                        break;
+                    case "Blue":
+                        using (Pen p = new Pen(Color.Blue))
+                        {
+                            DrawLine(p, pp, g);
+                        }
+                        break;
+                    case "White":
+                        using (Pen p = new Pen(Color.White))
+                        {
+                            DrawLine(p, pp, g);
+                        }
+                        break;
+                    default:
+                        using (Pen p = new Pen(Color.Black))
+                        {
+                            DrawLine(p, pp, g);
+                        }
+                        break;
                 }
-                using (Pen p2 = new Pen(Color.Green))
+
+                switch (Settings.GetStringValue("NodeColour"))
                 {
-                    DrawNodes(p2, pp, g);
+                    case "Red":
+                        using (Pen p2 = new Pen(Color.Red))
+                        {
+                            DrawNodes(p2, pp, g);
+                        }
+                        break;
+                    case "Green":
+                        using (Pen p2 = new Pen(Color.Green))
+                        {
+                            DrawNodes(p2, pp, g);
+                        }
+                        break;
+                    case "Blue":
+                        using (Pen p2 = new Pen(Color.Blue))
+                        {
+                            DrawNodes(p2, pp, g);
+                        }
+                        break;
+                    case "White":
+                        using (Pen p2 = new Pen(Color.White))
+                        {
+                            DrawNodes(p2, pp, g);
+                        }
+                        break;
+                    default:
+                        using (Pen p2 = new Pen(Color.Black))
+                        {
+                            DrawNodes(p2, pp, g);
+                        }
+                        break;
                 }
                 using (Font f = new Font("Arial", 8))
                 {
-                    DrawString(pp, g, f);
+                    Color color;
+                    switch (Settings.GetStringValue("LabelColour"))
+                    {
+                        case "Red":
+                            color = Color.Red;
+                            break;
+                        case "Green":
+                            color = Color.Green;
+                            break;
+                        case "Blue":
+                            color = Color.Blue;
+                            break;
+                        case "White":
+                            color = Color.White;
+                            break;
+                        default:
+                            color = Color.Black;
+                            break;
+                    }
+                    DrawString(pp, g, f, color);
                 }
-                bmp.Save(filename);//,System.Drawing.Imaging.ImageFormat.Jpeg);
-                Console.WriteLine("To end  press key!");
-                Console.ReadKey();
+                //bmp.Save(filename);
+                return bmp;
             }
         }
 
@@ -72,7 +167,7 @@ namespace GraphToImage
             }
         }
 
-        private void DrawString(PositionProvider pp, Graphics g, Font f)
+        private void DrawString(PositionProvider pp, Graphics g, Font f, Color c)
         {
             foreach (var node in graph.nodeList)
             {
@@ -80,7 +175,7 @@ namespace GraphToImage
                 nodePos = pp.ReturnNodePosition(Convert.ToInt32(node.nodeName), 0);
                 Console.WriteLine(node.nodeName);
                 float x = (float)(nodePos.posX + width / 2 - nodeRadius / 4), y = (float)(nodePos.posY + height / 2 - nodeRadius / 4);
-                TextRenderer.DrawText(g, node.nodeName, f, new Point((int)x, (int)y), SystemColors.ControlText);
+                TextRenderer.DrawText(g, node.nodeName, f, new Point((int)x, (int)y), c);
             }
         }
     }
