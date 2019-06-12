@@ -34,12 +34,12 @@
                 <DataTemplate>
                     <Grid>
                         <CheckBox IsChecked="{Binding Visible, Mode=TwoWay}" Command="{Binding ElementName=recent, Path=DataContext.UpdateCommand}" CommandParameter="{Binding}" />
-                        <Button Height="13" Width="13" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,0,0,0" Command="{Binding ElementName=recent, Path=DataContext.RemoveRecentCommand}" CommandParameter="{Binding}">
+                        <Button Height="13" Width="13" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="18,0,0,0" Command="{Binding ElementName=recent, Path=DataContext.RemoveRecentCommand}" CommandParameter="{Binding}">
                             <Button.Content>
                                 <TextBlock Text="X" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Button.Content>
                         </Button>
-                        <TextBlock Text="{Binding Name}" FontFamily="Arial" Margin="35,0,0,0" />
+                        <TextBlock Text="{Binding Name}" FontFamily="Arial" VerticalAlignment="Center" Margin="38,0,0,0" />
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
