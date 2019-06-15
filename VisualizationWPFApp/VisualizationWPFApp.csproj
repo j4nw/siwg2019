@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>VisualizationWPFApp</RootNamespace>
     <AssemblyName>VisualizationWPFApp</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -128,7 +128,7 @@
       <Project>{6FA32B86-7220-488E-B901-1243A96610EA}</Project>
       <Name>Labirynths</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PerlinNoise.cs\PerlinNoise.csproj">
+    <ProjectReference Include="..\PerlinNoise\PerlinNoise.csproj">
       <Project>{64579c0a-3b69-457d-9ff3-aa5ecac615f3}</Project>
       <Name>PerlinNoise</Name>
     </ProjectReference>

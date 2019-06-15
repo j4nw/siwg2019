@@ -20,7 +20,6 @@ namespace Labirynths
             Settings.Add("Height", "10");
             Settings.Add("Wall Size", "2");
             Settings.Add("Cell Size", "20");
-            Settings.Add("Cell Size", "20");
             Settings.Add("Step By Step (y/n)", "y");
         }
 

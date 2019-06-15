@@ -7,9 +7,9 @@
     <ProjectGuid>{64579C0A-3B69-457D-9FF3-AA5ECAC615F3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PerlinNoise.cs</RootNamespace>
-    <AssemblyName>PerlinNoise.cs</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <RootNamespace>PerlinNoise</RootNamespace>
+    <AssemblyName>PerlinNoise</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />

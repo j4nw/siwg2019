@@ -9,8 +9,8 @@
 1. Klasa problemu musi dziedzizczyæ po klasie abstrakcyjnej "ProblemVisualization" znajduj¹cej siê w "Core.Visualization"
 2. W klasie "ProblemVisualization" jest obiekt "Settings", w którym nale¿y umieszczaæ parametry wizualizacji, które bêdzie
 	mo¿na na bie¿¹co zmieniaæ. 
-	* Aby dodaæ parametr: Settings.Add("string"); (wszystkie parametry przechowywane jako string)
-	* Aby wczytaæ parametr: Setting.[GetIntValue()][GetFloatValue()][GetDoubleValue()][GetStringValue()];
+	* Aby dodaæ parametr: Settings.Add("key", "value"); (wszystkie parametry przechowywane jako string)
+	* Aby wczytaæ parametr: Settings.[GetIntValue("key")][GetFloatValue("key")][GetDoubleValue("key")][GetStringValue("key")];
 3. Aby problem by³ widoczny na liœcie w aplikacji, nale¿y dodaæ referencjê do niego w VisualizationWPFApp, a nastêpnie 
 	w VisualizationWPFApp.Model.cs, w metodzie "LoadProblemList" nale¿y dodaæ zgodnie ze schematem.
 4. Aby problem by³ widoczny pod konkretn¹ nazw¹ nale¿y przypisaæ j¹ do w³asnoœci "Name"

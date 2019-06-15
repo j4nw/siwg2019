@@ -12,6 +12,9 @@ namespace Core
 
         public string Name { get; set; }
 
+        public static int Count { get; set; }
+        public int Number { get; private set; }
+
         public bool Visible
         {
             get
@@ -34,8 +37,10 @@ namespace Core
         {
             Settings = new ProblemVisualizationSettings();
             Name = "Default Problem";
+            Number = Count;
             Visible = true;
         }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

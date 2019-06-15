@@ -17,13 +17,11 @@ namespace VisualizationWPFApp
         private Model model = new Model();
         private ICommand addNewVisualizationCommand = null;
         private ICommand submitModalCommand = null;
-        private ICommand onCloseCommand = null;
         private ICommand removeRecentCommand = null;
         private ICommand removeAllRecentCommand = null;
         private ICommand hideAllCommand = null;
         private ICommand updateCommand = null;
         private ICommand playStopCommand = null;
-        private int historyCount = 0;
 
         public ObservableCollection<ProblemVisualization> ProblemList { get { return model.ProblemList; } }
         public ObservableCollection<ProblemVisualization> RecentList { get { return model.RecentList; } }
@@ -123,8 +121,8 @@ namespace VisualizationWPFApp
                 {
                     submitModalCommand = new RelayCommand(m =>
                     {
-                        SelectedProblem.Name += " " + historyCount;
-                        historyCount++;
+                        ProblemVisualization.Count++;
+                        SelectedProblem.Name = SelectedProblem.Number + ") " + SelectedProblem.Name;
                         RecentList.Add(SelectedProblem);                        
                         visualWindow.Close();
                         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Visualization"));
@@ -162,6 +160,7 @@ namespace VisualizationWPFApp
                 {
                     removeAllRecentCommand = new RelayCommand(m =>
                     {
+                        ProblemVisualization.Count = 0;
                         model.RecentList.Clear();
                         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Visualization"));
                     });
