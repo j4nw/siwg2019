@@ -37,7 +37,7 @@ namespace VisualizationWPFApp
             ProblemList.Add(new Labirynths.RandomizedDepthFirstSearch());
             ProblemList.Add(new Labirynths.RecursiveDivision());
             ProblemList.Add(new CellularAutomata.Elementary());
-            ProblemList.Add(new GraphToImage.GraphToImage());
+            ProblemList.Add(new DijkstraAlgorithm.DijkstraAlgorithm());
             // ---
             SelectedProblem = ProblemList[0];           
         }

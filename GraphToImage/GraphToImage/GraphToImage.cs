@@ -9,45 +9,39 @@ using System.Windows.Forms;
 
 namespace GraphToImage
 {
-    public class GraphToImage : ProblemVisualization
+    public class GraphToImage<TVertex,TEdge>
+        where TEdge : IEdge, IEdgeExtension<TVertex>
+        where TVertex : INodeExtension
     {
-        Graph graph;
+        Graph<TVertex, TEdge> graph;
         int width = 640;
         int height = 800;
         int nodeRadius = 30;
+        int nodeDistanceFromCenter = 200;
+        string lineColour, nodeColour, labelColour; 
+       
 
-        public override Bitmap Visualization
+        public Bitmap GetBitmap(Graph<TVertex,TEdge> graph, int width, int height, int nodeRadius, int nodeDistanceFromCenter, string lineColour, string nodeColour, string labelColour)
         {
-            get
-            {
-                return Start(Settings.GetStringValue("Name"));
-            }
-        }
+            this.graph = graph;
+            this.width = width;
+            this.height = height;
+            this.nodeRadius = nodeRadius;
+            this.nodeDistanceFromCenter = nodeDistanceFromCenter;
+            this.lineColour = lineColour;
+            this.nodeColour = nodeColour;
+            this.labelColour = labelColour;
 
-        public GraphToImage()//Graph graph)
-        {
-            this.graph = new Graph(5);
-            this.graph.CreateRandomGraph();
-            Name = "GraphVisualisation";
-            Settings.Add("Width", "640");
-            Settings.Add("Height", "480");
-            Settings.Add("NodeRadius", "30");
-            Settings.Add("NodeDistanceFromCenter", "200");
-            Settings.Add("NodeColour", "Red");
-            Settings.Add("LineColour", "Blue");
-            Settings.Add("LabelColour", "White");
-        }
+            return Start();
+        } 
 
-        public Bitmap Start(string filename)
+        private Bitmap Start()
         {
-            width = Settings.GetIntValue("Width");
-            height = Settings.GetIntValue("Height");
-            nodeRadius = Settings.GetIntValue("NodeRadius");
             Bitmap bmp = new Bitmap(width, height);
             using (Graphics g = Graphics.FromImage(bmp))
             {
-                PositionProvider pp = new PositionProvider(graph.nodeList.Count, Settings.GetIntValue("NodeDistanceFromCenter"));
-                switch (Settings.GetStringValue("LineColour"))
+                PositionProvider pp = new PositionProvider(graph.nodeList.Count, this.nodeDistanceFromCenter);
+                switch (lineColour)
                 {
                     case "Red":
                         using (Pen p = new Pen(Color.Red))
@@ -74,14 +68,14 @@ namespace GraphToImage
                         }
                         break;
                     default:
-                        using (Pen p = new Pen(Color.Black))
+                        using (Pen p = new Pen(Color.Green))
                         {
                             DrawLine(p, pp, g);
                         }
                         break;
                 }
 
-                switch (Settings.GetStringValue("NodeColour"))
+                switch (nodeColour)
                 {
                     case "Red":
                         using (Pen p2 = new Pen(Color.Red))
@@ -117,7 +111,7 @@ namespace GraphToImage
                 using (Font f = new Font("Arial", 8))
                 {
                     Color color;
-                    switch (Settings.GetStringValue("LabelColour"))
+                    switch (labelColour)
                     {
                         case "Red":
                             color = Color.Red;
@@ -137,7 +131,6 @@ namespace GraphToImage
                     }
                     DrawString(pp, g, f, color);
                 }
-                //bmp.Save(filename);
                 return bmp;
             }
         }
@@ -160,8 +153,8 @@ namespace GraphToImage
                 {
                     Position nodeOnePosition;
                     Position nodeTwoPosition;
-                    nodeOnePosition = pp.ReturnNodePosition(Convert.ToInt32(edge.Key.nodeName), nodeRadius);
-                    nodeTwoPosition = pp.ReturnNodePosition(Convert.ToInt32(target.target.nodeName), nodeRadius);
+                    nodeOnePosition = pp.ReturnNodePosition(edge.Key.id, nodeRadius);
+                    nodeTwoPosition = pp.ReturnNodePosition(target.target.id, nodeRadius);
                     g.DrawLine(pen, (float)nodeOnePosition.posX + width / 2, (float)nodeOnePosition.posY + height / 2, (float)nodeTwoPosition.posX + width / 2, (float)nodeTwoPosition.posY + height / 2 );
                 }
             }
@@ -172,10 +165,10 @@ namespace GraphToImage
             foreach (var node in graph.nodeList)
             {
                 Position nodePos;
-                nodePos = pp.ReturnNodePosition(Convert.ToInt32(node.nodeName), 0);
-                Console.WriteLine(node.nodeName);
+                int name = node.id;// Convert.ToInt32(node);
+                nodePos = pp.ReturnNodePosition(node.id, 0);// Convert.ToInt32(node), 0);
                 float x = (float)(nodePos.posX + width / 2 - nodeRadius / 4), y = (float)(nodePos.posY + height / 2 - nodeRadius / 4);
-                TextRenderer.DrawText(g, node.nodeName, f, new Point((int)x, (int)y), c);
+                TextRenderer.DrawText(g, node.id.ToString(), f, new Point((int)x, (int)y), c);
             }
         }
     }

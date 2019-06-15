@@ -12,7 +12,7 @@ namespace GraphToImage
         static void Main(string[] args)
         {
             //pierwszy graf
-            //Graph graph = new Graph(5);
+            // Graph graph = new Graph(5);
             //graph.CreateRandomGraph();
             //GraphToImage graphToImage = new GraphToImage(graph);
             //graphToImage.Start("StartingGraph");

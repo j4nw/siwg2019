@@ -46,10 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GraphToImage\Edge.cs" />
     <Compile Include="GraphToImage\Graph.cs" />
     <Compile Include="GraphToImage\GraphToImage.cs" />
-    <Compile Include="GraphToImage\Node.cs" />
+    <Compile Include="GraphToImage\IEdgeExtension.cs" />
+    <Compile Include="GraphToImage\INodeExtension.cs" />
     <Compile Include="GraphToImage\PositionProvider.cs" />
     <Compile Include="GraphToImage\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
