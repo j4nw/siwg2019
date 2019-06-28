@@ -1,6 +1,7 @@
 ﻿using Core;
 using System.Collections.Generic;
 
+
 namespace AlgorithmsLibrary.PrimiKruskal
 {
     public class Graph<TVertex, TEdge> : IGraph<TVertex, TEdge>

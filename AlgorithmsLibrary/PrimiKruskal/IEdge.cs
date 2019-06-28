@@ -8,3 +8,4 @@ namespace AlgorithmsLibrary.PrimiKruskal
         TVertex End { get; }
     }
 }
+
