@@ -52,6 +52,8 @@
     <Compile Include="MinAndMax\Graph.cs" />
     <Compile Include="MinAndMax\IEdgeExtension.cs" />
     <Compile Include="MinAndMax\MinAndMax.cs" />
+    <Compile Include="PrimiKruskal\Graph.cs" />
+    <Compile Include="PrimiKruskal\IEdge.cs" />
     <Compile Include="Prim\BinaryHeap.cs" />
     <Compile Include="Prim\Prim.cs" />
     <Compile Include="TreeSearchWithQueue\IProblem.cs" />
