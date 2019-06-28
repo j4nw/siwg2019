@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisualizationTest", "Visual
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CellularAutomata", "CellularAutomata\CellularAutomata.csproj", "{37EC9B5D-43EC-46F3-808A-CCB03F6B18EC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParticleSwarmOptimization", "ParticleSwarmOptimization\ParticleSwarmOptimization.csproj", "{B34A6559-ECCE-491D-A91A-6C2543BA94AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +82,10 @@ Global
 		{37EC9B5D-43EC-46F3-808A-CCB03F6B18EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37EC9B5D-43EC-46F3-808A-CCB03F6B18EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37EC9B5D-43EC-46F3-808A-CCB03F6B18EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B34A6559-ECCE-491D-A91A-6C2543BA94AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B34A6559-ECCE-491D-A91A-6C2543BA94AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B34A6559-ECCE-491D-A91A-6C2543BA94AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B34A6559-ECCE-491D-A91A-6C2543BA94AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

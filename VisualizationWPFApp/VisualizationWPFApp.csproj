@@ -128,6 +128,10 @@
       <Project>{6FA32B86-7220-488E-B901-1243A96610EA}</Project>
       <Name>Labirynths</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ParticleSwarmOptimization\ParticleSwarmOptimization.csproj">
+      <Project>{B34A6559-ECCE-491D-A91A-6C2543BA94AF}</Project>
+      <Name>ParticleSwarmOptimization</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PerlinNoise\PerlinNoise.csproj">
       <Project>{64579c0a-3b69-457d-9ff3-aa5ecac615f3}</Project>
       <Name>PerlinNoise</Name>

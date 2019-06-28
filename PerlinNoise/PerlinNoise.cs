@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -55,11 +56,11 @@ namespace PerlinNoise
 
         public float[,] NoiseTable { get; private set; }
 
-        private void CreateNoise()
+        public void CreateNoise(int dim1 = 0, int dim2 = 0, float gridCellSize = 0)
         {
-            int dim1 = Settings.GetIntValue("Width");
-            int dim2 = Settings.GetIntValue("Height");
-            float gridCellSize = Settings.GetFloatValue("Grid Cell Size"); 
+            dim1 = (dim1 == 0) ? Settings.GetIntValue("Width") : dim1;
+            dim2 = (dim2 == 0) ? Settings.GetIntValue("Height") : dim2;
+            gridCellSize = (gridCellSize == 0) ? Settings.GetFloatValue("Grid Cell Size") : gridCellSize; 
 
             NoiseTable = new float[dim1, dim2];
 
@@ -130,11 +131,11 @@ namespace PerlinNoise
             return x;
         }
 
-        private void DrawGradients()
+        public void DrawGradients(int dim1 = 0, int dim2 = 0, float gridCellSize = 0)
         {
-            int dim1 = Settings.GetIntValue("Width");
-            int dim2 = Settings.GetIntValue("Height");
-            float gridCellSize = Settings.GetFloatValue("Grid Cell Size");
+            dim1 = (dim1 == 0) ? Settings.GetIntValue("Width") : dim1;
+            dim2 = (dim2 == 0) ? Settings.GetIntValue("Height") : dim2;
+            gridCellSize = (gridCellSize == 0) ? Settings.GetFloatValue("Grid Cell Size") : gridCellSize;
 
             var width = (int)Math.Ceiling(dim1 / gridCellSize) + 1;
             var height = (int)Math.Ceiling(dim2 / gridCellSize) + 1;

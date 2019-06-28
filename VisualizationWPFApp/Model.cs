@@ -38,6 +38,7 @@ namespace VisualizationWPFApp
             ProblemList.Add(new Labirynths.RecursiveDivision());
             ProblemList.Add(new CellularAutomata.Elementary());
             ProblemList.Add(new DijkstraAlgorithm.DijkstraAlgorithm());
+            ProblemList.Add(new ParticleSwarmOptimization.ParticleSwarmOptimization());
             // ---
             SelectedProblem = ProblemList[0];           
         }
