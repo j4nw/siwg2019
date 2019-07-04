@@ -39,6 +39,7 @@ namespace VisualizationWPFApp
             ProblemList.Add(new CellularAutomata.Elementary());
             ProblemList.Add(new DijkstraAlgorithm.DijkstraAlgorithm());
             ProblemList.Add(new ParticleSwarmOptimization.ParticleSwarmOptimization());
+            ProblemList.Add(new AlgorithmsLibrary.AntColonyOptimization());
             // ---
             SelectedProblem = ProblemList[0];           
         }

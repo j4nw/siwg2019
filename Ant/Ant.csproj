@@ -4,17 +4,18 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4586EAD7-540E-42E4-91DB-B07190361E06}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AlgorithmsLibrary</RootNamespace>
-    <AssemblyName>AlgorithmsLibrary</AssemblyName>
+    <ProjectGuid>{A839FC68-9C95-46EE-ABFC-411D60EAACFA}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Ant</RootNamespace>
+    <AssemblyName>Ant</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,6 +25,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -43,44 +45,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AntColonyOptimization\Ant.cs" />
-    <Compile Include="AntColonyOptimization\AntColonyOptimization.cs" />
-    <Compile Include="AntColonyOptimization\Bfs.cs" />
-    <Compile Include="AntColonyOptimization\Edge.cs" />
-    <Compile Include="AntColonyOptimization\Graph.cs" />
-    <Compile Include="AntColonyOptimization\Node.cs" />
-    <Compile Include="DijkstraAlgorithm\DijkstraAlgorithm.cs" />
-    <Compile Include="DijkstraAlgorithm\Edge.cs" />
-    <Compile Include="DijkstraAlgorithm\Graph.cs" />
-    <Compile Include="DijkstraAlgorithm\Node.cs" />
-    <Compile Include="Kruskal\Kruskal.cs" />
-    <Compile Include="Kruskal\QuickSort.cs" />
-    <Compile Include="Kruskal\UnionFind.cs" />
-    <Compile Include="MinAndMax\Graph.cs" />
-    <Compile Include="MinAndMax\IEdgeExtension.cs" />
-    <Compile Include="MinAndMax\MinAndMax.cs" />
-    <Compile Include="PrimiKruskal\Graph.cs" />
-    <Compile Include="PrimiKruskal\IEdge.cs" />
-    <Compile Include="Prim\BinaryHeap.cs" />
-    <Compile Include="Prim\Prim.cs" />
-    <Compile Include="TreeSearchWithQueue\IProblem.cs" />
-    <Compile Include="TreeSearchWithQueue\Node.cs" />
-    <Compile Include="TreeSearchWithQueue\PriorityQueue.cs" />
-    <Compile Include="TreeSearchWithQueue\TreeSearchWithQueue.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AlgorithmsLibrary\AlgorithmsLibrary.csproj">
+      <Project>{4586ead7-540e-42e4-91db-b07190361e06}</Project>
+      <Name>AlgorithmsLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{5deb16ae-43e6-4430-a566-652bc9e39609}</Project>
       <Name>Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GraphToImage\GraphToImage.csproj">
-      <Project>{c2ca6540-b4b8-44d4-b83c-b761bffb4fb8}</Project>
-      <Name>GraphToImage</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PerlinNoise\PerlinNoise.csproj">
-      <Project>{64579c0a-3b69-457d-9ff3-aa5ecac615f3}</Project>
-      <Name>PerlinNoise</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
