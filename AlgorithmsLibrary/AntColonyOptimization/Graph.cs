@@ -71,6 +71,7 @@ namespace AlgorithmsLibrary
             }
         }
 
+        // calculate distance between to nodes  
         public double TwoNodeDistance(Node node1, Node node2)
         {
             double result = 0;

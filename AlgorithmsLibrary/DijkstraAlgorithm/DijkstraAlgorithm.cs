@@ -11,23 +11,45 @@ namespace DijkstraAlgorithm
 {
     public class DijkstraAlgorithm : ProblemVisualization
     {
+        private int cnt = 0;
+        Graph graphIn = new Graph(1);
+        Graph graph = new Graph(1);
+
         public override System.Drawing.Bitmap Visualization
         {
             get
             {
-                Graph graphIn = new Graph(Settings.GetIntValue("N"));
-                graphIn.CreateRandomGraph();
-                Graph graph = StartAlgorithm(graphIn, graphIn.nodeList[0]);
-                GraphToImage.Graph<Node,Edge> newGraph = new GraphToImage.Graph<Node,Edge>(graph);
-                GraphToImage.GraphToImage<Node,Edge> gti = new GraphToImage.GraphToImage<Node,Edge>();
-                return gti.GetBitmap(newGraph,
-                    Settings.GetIntValue("Width"),
-                    Settings.GetIntValue("Height"),
-                    Settings.GetIntValue("NodeRadius"),
-                    Settings.GetIntValue("NodeDistanceFromCenter"),
-                    Settings.GetStringValue("LineColour"),
-                    Settings.GetStringValue("NodeColour"),
-                    Settings.GetStringValue("LabelColour"));
+                if (cnt == 0)
+                {
+                    graphIn = new Graph(Settings.GetIntValue("N"));
+                    graphIn.CreateRandomGraph();
+                    GraphToImage.Graph<Node, Edge> newGraph = new GraphToImage.Graph<Node, Edge>(graphIn);
+                    GraphToImage.GraphToImage<Node, Edge> gti = new GraphToImage.GraphToImage<Node, Edge>();
+                    cnt++;
+                    return gti.GetBitmap(newGraph,
+                        Settings.GetIntValue("Width"),
+                        Settings.GetIntValue("Height"),
+                        Settings.GetIntValue("NodeRadius"),
+                        Settings.GetIntValue("NodeDistanceFromCenter"),
+                        Settings.GetStringValue("LineColour"),
+                        Settings.GetStringValue("NodeColour"),
+                        Settings.GetStringValue("LabelColour"));
+                }
+                else
+                {
+                    graph = StartAlgorithm(graphIn, graphIn.nodeList[0]);
+                    GraphToImage.Graph<Node, Edge> newGraph = new GraphToImage.Graph<Node, Edge>(graph);
+                    GraphToImage.GraphToImage<Node, Edge> gti = new GraphToImage.GraphToImage<Node, Edge>();
+                    cnt = 0;
+                    return gti.GetBitmap(newGraph,
+                        Settings.GetIntValue("Width"),
+                        Settings.GetIntValue("Height"),
+                        Settings.GetIntValue("NodeRadius"),
+                        Settings.GetIntValue("NodeDistanceFromCenter"),
+                        Settings.GetStringValue("LineColour"),
+                        Settings.GetStringValue("NodeColour"),
+                        Settings.GetStringValue("LabelColour"));
+                }
                 //System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(50,50);
                 //return bmp;
             }
@@ -113,11 +135,8 @@ namespace DijkstraAlgorithm
                             }
                         }
                     }
-                    //oldNode = u;
                 }
-
             }
-            //PrintSolution(dist, v);
             shortestWayGraph.PrintGraph("tf");
             shortestWayGraph.PrintGraphCost();
             return shortestWayGraph;

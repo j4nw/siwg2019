@@ -8,14 +8,13 @@ namespace AlgorithmsLibrary
 {
     public class Ant
     {
-        public int id;
-        public Node currentPosition;
-        public List<Node> path = new List<Node>();
-        public List<Edge> edgePath = new List<Edge>();
-        public int pathCost;
-        public double pheromone;
-        public Node target;
-        public Edge lastEdge;
+        public int id; // use to debug
+        public Node currentPosition; //current position in graph
+        public List<Node> path = new List<Node>(); // used nodes
+        public List<Edge> edgePath = new List<Edge>(); // used edges
+        public int pathCost; // path cost
+        public double pheromone; // the amount of pheromone left
+        public Node target; // goal Node
         public bool done = false;
         public bool cantMove = false;
 
@@ -37,10 +36,10 @@ namespace AlgorithmsLibrary
             pathCost += moveOn.cost;
 
             //update edge to update pheromone after all ants end move
-            lastEdge = moveOn;
             edgePath.Add(moveOn);
         }
 
+        // reset the ant to the starting position to search the road again
         public void Reset(Node startNode)
         {
             path = new List<Node>();
@@ -70,6 +69,7 @@ namespace AlgorithmsLibrary
             return false;
         }
 
+        // update the pheromone if the target has been reached (if not failed)
         public void UpdatePheromone()
         {
             if(!cantMove)
