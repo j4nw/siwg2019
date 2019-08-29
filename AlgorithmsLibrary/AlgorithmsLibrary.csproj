@@ -63,6 +63,7 @@
     <Compile Include="PrimiKruskal\IEdge.cs" />
     <Compile Include="Prim\BinaryHeap.cs" />
     <Compile Include="Prim\Prim.cs" />
+    <Compile Include="PSO\PSO.cs" />
     <Compile Include="TreeSearchWithQueue\IProblem.cs" />
     <Compile Include="TreeSearchWithQueue\Node.cs" />
     <Compile Include="TreeSearchWithQueue\PriorityQueue.cs" />
