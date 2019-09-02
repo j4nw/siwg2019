@@ -6,19 +6,24 @@ namespace Kruskal
 {
     public class Kruskal
     {
+        //znajduje minimalne drzewo rozpinające podanego grafu IG stosując algorytm Kruskala
+        //graf IG musi być spójny i ważony
         public static Graph<TVertex, TEdge> FindMST<TVertex, TEdge>(IGraph<TVertex, TEdge> IG)
             where TEdge : IEdge<TVertex>
         {
-            //Utwórz las L z wierzchołków oryginalnego grafu – każdy wierzchołek jest na początku osobnym drzewem.
+            //las L z wierzchołków oryginalnego grafu IG – każdy wierzchołek jest na początku osobnym drzewem
             UnionFind<TVertex> L = new UnionFind<TVertex>(IG.Vertices);
 
+            //graf MST który będzie minimalnym drzewem rozpinającym
             Graph<TVertex, TEdge> MST = new Graph<TVertex, TEdge>();
+
+            //dodawanie wierzchołków do drzewa rozpinającego
             foreach (TVertex v in IG.Vertices)
             {
                 MST.AddVertex(v);
             }
 
-            //Utwórz zbiór S zawierający wszystkie krawędzie oryginalnego grafu.
+            //zbiór S zawierający wszystkie krawędzie oryginalnego grafu
             TEdge[] S = new TEdge[IG.Edges.Count()];
             int i = 0;
             foreach (TEdge e in IG.Edges)
@@ -26,26 +31,30 @@ namespace Kruskal
                 S[i] = e;
                 i++;
             }
-            //posortowane rosnąco po wadze krawędzi
+
+            //posortowane rosnąco po wagach krawędzi
             QuickSort.Sort<TVertex, TEdge>(S);
 
             i = 0;
-            //Dopóki MST nie jest drzewem rozpinającym:
+            //powtarzaj dopóki MST nie jest drzewem rozpinającym (wszystkie wierzchołki nie są połączone)
             while (MST.Edges.Count() != MST.Vertices.Count() - 1)
             {
-                //Wybierz i usuń z S jedną z krawędzi o minimalnej wadze.
                 if (i >= S.Length)
                     break;
+                //krawędź o najmniejszej wadze (pierwsza z posortowanej listy)
                 TEdge e = S[i];
                 i++;
 
+                //korzenie wierzchołków, które łączy wybrana krawędź e
                 TVertex startRoot = L.Find(e.Start);
                 TVertex endRoot = L.Find(e.End);
 
-                //Jeśli krawędź ta łączyła dwa różne drzewa, to dodaj ją do lasu L, tak aby połączyła dwa odpowiadające drzewa w jedno.
+                //jeśli krawędź ta łączyła dwa różne drzewa (id korzeni są różne)
                 if (L.DictID(startRoot) != L.DictID(endRoot))
                 {
+                    //połącz dwa drzewa w jedno
                     L.Union(e.Start, e.End);
+                    //dodaj krawędź do drzewa rozpinającego
                     MST.AddEdge(e);
                 }
             }

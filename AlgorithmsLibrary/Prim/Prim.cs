@@ -8,72 +8,75 @@ namespace Prim
 {
     public static class Prim
     {
+        //znajduje minimalne drzewo rozpinające podanego grafu IG stosując algorytm Prima
+        //graf IG musi być spójny i ważony
         public static Graph<TVertex, TEdge> FindMST<TVertex, TEdge>(IGraph<TVertex, TEdge> IG)
             where TEdge : IEdge<TVertex>
         {
-            //lista wierzcholkow nie bedacych jeszcze w drzewie MST
+            //lista wierzchołków nie bedących jeszcze w MDR
             List<TVertex> VerticesLeft = new List<TVertex>();
+
+            //dodawanie każdego wierzchołka grafu IG do listy
             foreach (TVertex v in IG.Vertices)
             {
                 VerticesLeft.Add(v);
             }
 
-            //Utwórz drzewo zawierające jeden wierzchołek, dowolnie wybrany z grafu.
+            //graf MST który będzie minimalnym drzewem rozpinającym
             Graph<TVertex, TEdge> MST = new Graph<TVertex, TEdge>();
+
+            //dodanie 1-wszego wierzchołka do MST
             MST.AddVertex(VerticesLeft[0]);
 
-            //Utwórz kolejkę priorytetową, zawierającą wierzchołki osiągalne z MDR(w tym momencie zawiera jeden wierzchołek), 
-            //o priorytecie najmniejszego kosztu dotarcia do danego wierzchołka z MDR.
+            //utworzenie kolejki priorytetowej zawierającej krawędzie wychodzące z MST
             BinaryHeap<TVertex, TEdge> EdgeQueue = new BinaryHeap<TVertex, TEdge>(IG.Edges.Count());
+            //w tym momencie MST zawiera 1 wierzchołek, więc dodane są tylko jego krawędzie
             foreach (TEdge e in IG.IncidentEdges(VerticesLeft[0]))
             {
                 EdgeQueue.Insert(e);
             }
+
+            //usunięcie wierzchołka dodanego do MST z listy brakujących wierzchołków
             VerticesLeft.RemoveAt(0);
 
             bool end = false;
             bool start = false;
-            //Powtarzaj, dopóki drzewo nie obejmuje wszystkich wierzchołków grafu:
+
+            //powtarzajnie dopóki drzewo nie obejmuje wszystkich wierzchołków grafu
             while (VerticesLeft.Count > 0)
             {
-                //wśród nieprzetworzonych wierzchołków(spoza obecnego MDR) wybierz ten, dla którego koszt dojścia z obecnego MDR jest najmniejszy.
+                //wyciągnięcie z kolejki krawędzi o najmniejszym koszcie dojścia
                 TEdge MinEdge = EdgeQueue.ExtractMin();
 
+                //zmienne bool mówiące czy wierzchołki, które łączy wyciągnięta krawędź są na liście brakujących wierzchołków
                 end = VerticesLeft.Contains(MinEdge.End);
                 start = VerticesLeft.Contains(MinEdge.Start);
-                if (end || start)
+
+                //zmienna przechowująca wierzchołek do dodania do drzewa
+                TVertex vertexToAdd;
+
+                //jeśli wierzchołek end nie został jeszcze dodany do drzewa
+                if (end)
+                    vertexToAdd = MinEdge.End;
+                //jeśli wierzchołek start nie został jeszcze dodany do drzewa
+                else if (start)
+                    vertexToAdd = MinEdge.Start;
+                //jeśli krawędź łączyła wierzchołki będące już w drzewie
+                else
+                    continue;
+
+                //dodanie do drzewa wybranych wierzchołka i krawędzi
+                MST.AddVertex(vertexToAdd);
+                MST.AddEdge(MinEdge);
+
+                //usunięcie dodaengo wierzchołka z listy brakujących wierzchołków
+                VerticesLeft.Remove(vertexToAdd);
+
+                //dodanie krawędzi wychodzących z nowododanego wierzchołka do kolejki, ale tylko tych, które nie utworzą pętli w drzewie
+                foreach (TEdge e in IG.IncidentEdges(vertexToAdd))
                 {
-                    if (end)
-                    {
-                        //dodaj do obecnego MDR wierzchołek i krawędź realizującą najmniejszy koszt
-                        MST.AddVertex(MinEdge.End);
-                        MST.AddEdge(MinEdge);
-
-                        //zaktualizuj kolejkę priorytetową, uwzględniając nowe krawędzie wychodzące z dodanego wierzchołka
-                        VerticesLeft.Remove(MinEdge.End);
-                        //dodaj krawedzie wychodzace z nowo-dodanego wierzcholka ale takie ktore nie lacza sie z wierzcholkami juz bedacymi w MST
-                        foreach (TEdge e in IG.IncidentEdges(MinEdge.End))
-                        {
-                            if (VerticesLeft.Contains(e.End) || VerticesLeft.Contains(e.Start))
-                                EdgeQueue.Insert(e);
-                        }
-                    }
-                    else //if (start)
-                    {
-                        //dodaj do obecnego MDR wierzchołek i krawędź realizującą najmniejszy koszt
-                        MST.AddVertex(MinEdge.Start);
-                        MST.AddEdge(MinEdge);
-
-                        //zaktualizuj kolejkę priorytetową, uwzględniając nowe krawędzie wychodzące z dodanego wierzchołka
-                        VerticesLeft.Remove(MinEdge.Start);
-                        //dodaj krawedzie wychodzace z nowo-dodanego wierzcholka ale takie ktore nie lacza sie z wierzcholkami juz bedacymi w MST
-                        foreach (TEdge e in IG.IncidentEdges(MinEdge.Start))
-                        {
-                            if (VerticesLeft.Contains(e.End) || VerticesLeft.Contains(e.Start))
-                                EdgeQueue.Insert(e);
-                        }
-                    }
-
+                    if (VerticesLeft.Contains(e.End) || VerticesLeft.Contains(e.Start))
+                        EdgeQueue.Insert(e);
                 }
             }
 

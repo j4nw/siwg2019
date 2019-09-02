@@ -5,10 +5,9 @@ using PerlinNoise;
 
 namespace AlgorithmsLibrary
 {
+    //Particle Swarm Optimization 
     public class PSO : ProblemVisualization
     {
-        private static readonly Random random = new Random();
-
         public PSO()
         {
             // name visible on list
@@ -25,27 +24,38 @@ namespace AlgorithmsLibrary
             Settings.Add("Heighest/lowest (1/0)", "1");
         }
 
-        private bool first = true;
+        //do losowania pozycji i prędkości
+        static readonly Random random = new Random();
 
-        private int width;
-        private int height;
-        private int swarmSize;
-        private double c1;
-        private double c2;
-        private int iters;
+        //parametry z ustawień
+        int width;
+        int height;
+        int swarmSize;
+        double c1;
+        double c2;
+        int iters;
 
-        private int[] globalBest;
-        private int[][] particles;
-        private int[][] particlesBests;
-        private double[][] velocities;
+        //najlepsza znaleziona pozycja globalnie (globalBest[0] - pozycja w osi x, globalBest[1] - pozycja w osi y)
+        int[] globalBest;
+        //obecne pozycje cząsteczek (particles[i][0] - pozycja cząsteczki i w osi x, particles[i][1] - pozycja cząsteczki i w osi y)
+        int[][] particles;
+        //najlepsze znalezione pozycje cząsteczek (particlesBests[i][0] - pozycja cząsteczki i w osi x, particlesBests[i][1] - pozycja cząsteczki i w osi y)
+        int[][] particlesBests;
+        //obecne prędkości cząsteczek (velocities[i][0] - prędkość cząsteczki i w osi x, velocities[i][1] - prędkość cząsteczki i w osi y)
+        double[][] velocities;
 
-        private int iteration;
-        private bool changed;
+        //czy to pierwsza iteracja wizualizacji
+        bool first = true;
+        //liczba iteracji bez zmian
+        int iteration;
+        //czy najlepsza pozycja globalnie została zmieniona w obecnej iteracji
+        bool changed;
 
-        private PerlinNoise.PerlinNoise map;
+        //mapa szumu Perlina, na której będzie szukana najlepsza pozycja
+        PerlinNoise.PerlinNoise map;
 
-        //visualization
-        public override Bitmap Visualization // get image for visualization
+        //wizualizacja
+        public override Bitmap Visualization 
         {
             get
             {
@@ -56,10 +66,13 @@ namespace AlgorithmsLibrary
             }
         }
 
+        //znajduje najwyższy punkt mapy
         private Bitmap FindHighest()
         {
+            //jeśli to pierwsza iteracja
             if (first)
             {
+                //pobierz ustawienia
                 width = Settings.GetIntValue("Width");
                 height = Settings.GetIntValue("Height");
                 swarmSize = Settings.GetIntValue("Swarm Size");
@@ -67,16 +80,16 @@ namespace AlgorithmsLibrary
                 c2 = Settings.GetDoubleValue("c2");
                 iters = Settings.GetIntValue("Iter. Without Change");
 
+                //wygeneruj mapę szumem Perlina
                 map = new PerlinNoise.PerlinNoise();
                 map.DrawGradients(width, height, Settings.GetFloatValue("Grid Cell Size"));
                 map.CreateNoise(width, height, Settings.GetFloatValue("Grid Cell Size"));
 
-
+                //zainicjuj tablice cząsteczek
                 globalBest = new int[2];
                 particles = new int[swarmSize][];
                 particlesBests = new int[swarmSize][];
                 velocities = new double[swarmSize][];
-
                 for (int i = 0; i < swarmSize; i++)
                 {
                     particles[i] = new int[2];
@@ -84,25 +97,26 @@ namespace AlgorithmsLibrary
                     velocities[i] = new double[2];
                 }
 
-                // for each particle i = 1, ..., S do
+                //dla każdej cząsteczki
                 for (int i = 0; i < swarmSize; i++)
                 {
-                    // Initialize the particle's position with a uniformly distributed random vector: xi ~ U(blo, bup)
-                    // Initialize the particle's best known position to its initial position: pi ← xi
-                    // Initialize the particle's velocity: vi ~ U(-|bup-blo|, |bup-blo|)
+                    //wylosuj początkową pozycję cząsteczki
                     particles[i][0] = random.Next(0, width);
-                    particlesBests[i][0] = particles[i][0];
-                    velocities[i][0] = RandomNumberBetween(-(double)width / 5, (double)width / 5);
-
                     particles[i][1] = random.Next(0, height);
+
+                    //ustaw obecną pozycję cząsteczki jako jej najlepszą
+                    particlesBests[i][0] = particles[i][0];
                     particlesBests[i][1] = particles[i][1];
+
+                    //wylosuj początkową prędkość cząsteczki
+                    velocities[i][0] = RandomNumberBetween(-(double)width / 5, (double)width / 5);
                     velocities[i][1] = RandomNumberBetween(-(double)height / 5, (double)height / 5);
 
-
-                    // if f(pi) < f(g) then
-                    //    update the swarm's best known  position: g ← pi
+                    //jeśli to pierwsza ustawiana cząsteczka 
+                    //lub najlepsza pozycja cząsteczki jest wyżej niż globalna
                     if (i == 0 || map.NoiseTable[particlesBests[i][0], particlesBests[i][1]] > map.NoiseTable[globalBest[0], globalBest[1]])
                     {
+                        //uaktualnij globalną pozycję
                         globalBest[0] = particlesBests[i][0];
                         globalBest[1] = particlesBests[i][1];
                     }
@@ -112,60 +126,63 @@ namespace AlgorithmsLibrary
                 changed = false;
             }
 
+            //jesli to niepierwsza iteracja i liczba iteracji bez zmian globalnej pozycji nie przekroczyła ustawionej granicy
             if (!first && iteration < iters)
             {
-                // for each particle i = 1, ..., S do
+                //dla każdej cząsteczki
                 for (int i = 0; i < swarmSize; i++)
                 {
-                    // Pick random numbers: rp, rg ~U(0, 1)
+                    //wylosuj wartości parametrów
                     double r1 = RandomNumberBetween(0, 1);
                     double r2 = RandomNumberBetween(0, 1);
 
-                    // Update the particle's velocity: vi,d ← ω vi,d + φp rp (pi,d-xi,d) + φg rg (gd-xi,d)
+                    //uaktualnij prędkość cząsteczki
                     velocities[i][0] += c1 * r1 * (particlesBests[i][0] - particles[i][0]) + c2 * r2 * (globalBest[0] - particles[i][0]);
+                    velocities[i][1] += c1 * r1 * (particlesBests[i][1] - particles[i][1]) + c2 * r2 * (globalBest[1] - particles[i][1]);
 
-                    // Update the particle's position: xi ← xi + vi
+                    //uaktualnij pozycję cząsteczki
                     particles[i][0] += (int)velocities[i][0];
+                    particles[i][1] += (int)velocities[i][1];
+
+                    //jeśli pozycja wykracza poza granicę mapy, ustaw ją na granicy
                     if (particles[i][0] < 0)
                         particles[i][0] = 0;
                     else if (particles[i][0] >= width)
                         particles[i][0] = width - 1;
 
-
-                    // Update the particle's velocity: vi,d ← ω vi,d + φp rp (pi,d-xi,d) + φg rg (gd-xi,d)
-                    velocities[i][1] += c1 * r1 * (particlesBests[i][1] - particles[i][1]) + c2 * r2 * (globalBest[1] - particles[i][1]);
-
-                    // Update the particle's position: xi ← xi + vi
-                    particles[i][1] += (int)velocities[i][1];
                     if (particles[i][1] < 0)
                         particles[i][1] = 0;
                     else if (particles[i][1] >= height)
                         particles[i][1] = height - 1;
 
 
-                    // if f(xi) < f(pi) then
-                    //    Update the particle's best known position: pi ← xi
+                    //jeśli obecna pozycja cząsteczki jest wyżej niż jej najlepsza
                     if (map.NoiseTable[particles[i][0], particles[i][1]] > map.NoiseTable[particlesBests[i][0], particlesBests[i][1]])
                     {
+                        //uaktualnij najlepszą pozycję cząsteczki
                         particlesBests[i][0] = particles[i][0];
                         particlesBests[i][1] = particles[i][1];
 
-                        // if f(pi) < f(g) then
-                        //    Update the swarm's best known position: g ← pi
+                        //jeśli obecna pozycja cząsteczki jest wyżej niż najlepsza globalnie pozycja
                         if (map.NoiseTable[particles[i][0], particles[i][1]] > map.NoiseTable[globalBest[0], globalBest[1]])
                         {
+                            //uaktualnij globalną pozycję
                             globalBest[0] = particles[i][0];
                             globalBest[1] = particles[i][1];
 
+                            //najlepsza pozycja globalnie została zmieniona w obecnej iteracji
                             changed = true;
                         }
                     }
                 }
 
-                // stop condition
+                //jeśli najlepsza pozycja globalnie została zmieniona w obecnej iteracji
                 if (changed)
+                    //ustaw liczbę iteracji bez zmian na zero
                     iteration = 0;
+                //jeśli nie
                 else
+                    //zwiększ liczbę iteracji bez zmian na zero
                     iteration++;
             }
 
@@ -173,27 +190,33 @@ namespace AlgorithmsLibrary
             changed = false;
 
 
-            //image
+            //wygeneruj obraz do wizualizacji
             Bitmap image = new Bitmap(width, height);
 
+            //narysuj mapę szumu
             for (int i = 0; i < width; i++)
                 for (int j = 0; j < height; j++)
                     image.SetPixel(i, j, Color.FromArgb(0, 0, (int)((map.NoiseTable[i, j] + 1) * 128)));
 
+            //narysuj pozycje cząsteczek
             for (int i = 0; i < swarmSize; i++)
                 particleDraw(image, particles[i][0], particles[i][1], 255, 0, 0);
 
+            //jeśli warunek stopu algorytmu został spełniony
             if (iteration >= iters)
+                //narysuj najlepszą globalnie pozycję
                 particleDraw(image, globalBest[0], globalBest[1], 0, 255, 0);
-
 
             return image;
         }
 
+        //znajduje najniższy punkt mapy
         private Bitmap FindLowest()
         {
+            //jeśli to pierwsza iteracja
             if (first)
             {
+                //pobierz ustawienia
                 width = Settings.GetIntValue("Width");
                 height = Settings.GetIntValue("Height");
                 swarmSize = Settings.GetIntValue("Swarm Size");
@@ -201,16 +224,16 @@ namespace AlgorithmsLibrary
                 c2 = Settings.GetDoubleValue("c2");
                 iters = Settings.GetIntValue("Iter. Without Change");
 
+                //wygeneruj mapę szumem Perlina
                 map = new PerlinNoise.PerlinNoise();
                 map.DrawGradients(width, height, Settings.GetFloatValue("Grid Cell Size"));
                 map.CreateNoise(width, height, Settings.GetFloatValue("Grid Cell Size"));
 
-
+                //zainicjuj tablice cząsteczek
                 globalBest = new int[2];
                 particles = new int[swarmSize][];
                 particlesBests = new int[swarmSize][];
                 velocities = new double[swarmSize][];
-
                 for (int i = 0; i < swarmSize; i++)
                 {
                     particles[i] = new int[2];
@@ -218,23 +241,23 @@ namespace AlgorithmsLibrary
                     velocities[i] = new double[2];
                 }
 
-                // for each particle i = 1, ..., S do
+                //dla każdej cząsteczki
                 for (int i = 0; i < swarmSize; i++)
                 {
-                    // Initialize the particle's position with a uniformly distributed random vector: xi ~ U(blo, bup)
-                    // Initialize the particle's best known position to its initial position: pi ← xi
-                    // Initialize the particle's velocity: vi ~ U(-|bup-blo|, |bup-blo|)
+                    //wylosuj początkową pozycję cząsteczki
                     particles[i][0] = random.Next(0, width);
-                    particlesBests[i][0] = particles[i][0];
-                    velocities[i][0] = RandomNumberBetween(-(double)width / 5, (double)width / 5);
-
                     particles[i][1] = random.Next(0, height);
+
+                    //ustaw obecną pozycję cząsteczki jako jej najlepszą
+                    particlesBests[i][0] = particles[i][0];
                     particlesBests[i][1] = particles[i][1];
+
+                    //wylosuj początkową prędkość cząsteczki
+                    velocities[i][0] = RandomNumberBetween(-(double)width / 5, (double)width / 5);
                     velocities[i][1] = RandomNumberBetween(-(double)height / 5, (double)height / 5);
 
-
-                    // if f(pi) < f(g) then
-                    //    update the swarm's best known  position: g ← pi
+                    //jeśli to pierwsza ustawiana cząsteczka 
+                    //lub najlepsza pozycja cząsteczki jest niżej niż globalna
                     if (i == 0 || map.NoiseTable[particlesBests[i][0], particlesBests[i][1]] < map.NoiseTable[globalBest[0], globalBest[1]])
                     {
                         globalBest[0] = particlesBests[i][0];
@@ -246,61 +269,63 @@ namespace AlgorithmsLibrary
                 changed = false;
             }
 
+            //jesli to niepierwsza iteracja i liczba iteracji bez zmian globalnej pozycji nie przekroczyła ustawionej granicy
             if (!first && iteration < iters)
             {
-                // for each particle i = 1, ..., S do
+                //dla każdej cząsteczki
                 for (int i = 0; i < swarmSize; i++)
                 {
-                    // Pick random numbers: rp, rg ~U(0, 1)
+                    //wylosuj wartości parametrów
                     double r1 = RandomNumberBetween(0, 1);
                     double r2 = RandomNumberBetween(0, 1);
 
-                    // Update the particle's velocity: vi,d ← ω vi,d + φp rp (pi,d-xi,d) + φg rg (gd-xi,d)
+                    //uaktualnij prędkość cząsteczki
                     velocities[i][0] += c1 * r1 * (particlesBests[i][0] - particles[i][0]) + c2 * r2 * (globalBest[0] - particles[i][0]);
+                    velocities[i][1] += c1 * r1 * (particlesBests[i][1] - particles[i][1]) + c2 * r2 * (globalBest[1] - particles[i][1]);
 
-                    // Update the particle's position: xi ← xi + vi
+                    //uaktualnij pozycję cząsteczki
                     particles[i][0] += (int)velocities[i][0];
+                    particles[i][1] += (int)velocities[i][1];
+
+                    //jeśli pozycja wykracza poza granicę mapy, ustaw ją na granicy
                     if (particles[i][0] < 0)
                         particles[i][0] = 0;
                     else if (particles[i][0] >= width)
                         particles[i][0] = width - 1;
 
-
-                    // Update the particle's velocity: vi,d ← ω vi,d + φp rp (pi,d-xi,d) + φg rg (gd-xi,d)
-                    velocities[i][1] += c1 * r1 * (particlesBests[i][1] - particles[i][1]) + c2 * r2 * (globalBest[1] - particles[i][1]);
-
-                    // Update the particle's position: xi ← xi + vi
-                    particles[i][1] += (int)velocities[i][1];
                     if (particles[i][1] < 0)
                         particles[i][1] = 0;
                     else if (particles[i][1] >= height)
                         particles[i][1] = height - 1;
 
 
-
-                    // if f(xi) < f(pi) then
-                    //    Update the particle's best known position: pi ← xi
+                    //jeśli obecna pozycja cząsteczki jest niżej niż jej najlepsza
                     if (map.NoiseTable[particles[i][0], particles[i][1]] < map.NoiseTable[particlesBests[i][0], particlesBests[i][1]])
                     {
+                        //uaktualnij najlepszą pozycję cząsteczki
                         particlesBests[i][0] = particles[i][0];
                         particlesBests[i][1] = particles[i][1];
 
-                        // if f(pi) < f(g) then
-                        //    Update the swarm's best known position: g ← pi
+                        //jeśli obecna pozycja cząsteczki jest niżej niż najlepsza globalnie pozycja
                         if (map.NoiseTable[particles[i][0], particles[i][1]] < map.NoiseTable[globalBest[0], globalBest[1]])
                         {
+                            //uaktualnij globalną pozycję
                             globalBest[0] = particles[i][0];
                             globalBest[1] = particles[i][1];
 
+                            //najlepsza pozycja globalnie została zmieniona w obecnej iteracji
                             changed = true;
                         }
                     }
                 }
 
-                // stop condition
+                //jeśli najlepsza pozycja globalnie została zmieniona w obecnej iteracji
                 if (changed)
+                    //ustaw liczbę iteracji bez zmian na zero
                     iteration = 0;
+                //jeśli nie
                 else
+                    //zwiększ liczbę iteracji bez zmian na zero
                     iteration++;
             }
 
@@ -308,24 +333,27 @@ namespace AlgorithmsLibrary
             changed = false;
 
 
-            //image
+            //wygeneruj obraz do wizualizacji
             Bitmap image = new Bitmap(width, height);
 
+            //narysuj mapę szumu
             for (int i = 0; i < width; i++)
                 for (int j = 0; j < height; j++)
                     image.SetPixel(i, j, Color.FromArgb(0, 0, (int)((map.NoiseTable[i, j] + 1) * 128)));
 
+            //narysuj pozycje cząsteczek
             for (int i = 0; i < swarmSize; i++)
                 particleDraw(image, particles[i][0], particles[i][1], 255, 0, 0);
 
+            //jeśli warunek stopu algorytmu został spełniony
             if (iteration >= iters)
+                //narysuj najlepszą globalnie pozycję
                 particleDraw(image, globalBest[0], globalBest[1], 0, 255, 0);
-
 
             return image;
         }
 
-        //draw particle as a square 3x3 pixels
+        //rysuje pozycję cząsteczki jako kwadrat 3x3 piksele
         private void particleDraw(Bitmap image, int x, int y, int r = 255, int g = 255, int b = 255)
         {
             image.SetPixel(x, y, Color.FromArgb(r, g, b));
@@ -356,105 +384,15 @@ namespace AlgorithmsLibrary
 
                 if (y + 1 < height)
                     image.SetPixel(x + 1, y + 1, Color.FromArgb(r, g, b));
-            }            
+            }
         }
 
-
+        //losuje liczbę double z zakresu [minValue; maxValue]
         private static double RandomNumberBetween(double minValue, double maxValue)
         {
             maxValue += Double.Epsilon;
             var next = random.NextDouble();
             return minValue + (next * (maxValue - minValue));
-        }
-
-        public static double[] FindSolution(Func<double[], double> Cost, double[,] boundaries, double c1 = 2, double c2 = 2, int dim = 2, int swarmSize = 40, int iterWithoutBetterSolution = 1000)
-        {
-            double[] globalBest = new double[dim];
-            double[][] particles = new double[swarmSize][];
-            double[][] particlesBests = new double[swarmSize][];
-            double[][] velocities = new double[swarmSize][];
-
-            for (int i = 0; i < swarmSize; i++)
-            {
-                particles[i] = new double[dim];
-                particlesBests[i] = new double[dim];
-                velocities[i] = new double[dim];
-            }
-
-            // for each particle i = 1, ..., S do
-            for (int i = 0; i < swarmSize; i++)
-            {
-                // Initialize the particle's position with a uniformly distributed random vector: xi ~ U(blo, bup)
-                // Initialize the particle's best known position to its initial position: pi ← xi
-                // Initialize the particle's velocity: vi ~ U(-|bup-blo|, |bup-blo|)
-                for (int j = 0; j < dim; j++)
-                {
-                    particles[i][j] = RandomNumberBetween(boundaries[j, 0], boundaries[j, 1]);
-                    particlesBests[i][j] = particles[i][j];
-                    velocities[i][j] = RandomNumberBetween(-(boundaries[j, 1] - boundaries[j, 0]), boundaries[j, 1] - boundaries[j, 0]);
-                }
-
-                // if f(pi) < f(g) then
-                //    update the swarm's best known  position: g ← pi
-                if (i == 0 || Cost(particlesBests[i]) < Cost(globalBest))
-                    for (int j = 0; j < dim; j++)
-                        globalBest[j] = particlesBests[i][j];
-
-            }
-
-            int iteration = 0;
-            bool changed = false;
-            // while a termination criterion is not met do:
-            while (iteration != iterWithoutBetterSolution)
-            {
-                changed = false;
-                // for each particle i = 1, ..., S do
-                for (int i = 0; i < swarmSize; i++)
-                {
-                    // for each dimension d = 1, ..., n do
-                    for (int j = 0; j < dim; j++)
-                    {
-                        // Pick random numbers: rp, rg ~U(0, 1)
-                        double r1 = RandomNumberBetween(0, 1);
-                        double r2 = RandomNumberBetween(0, 1);
-
-                        // Update the particle's velocity: vi,d ← ω vi,d + φp rp (pi,d-xi,d) + φg rg (gd-xi,d)
-                        velocities[i][j] += c1 * r1 * (globalBest[j] - particlesBests[i][j]) + c2 * r2 * (globalBest[j] - particlesBests[i][j]);
-
-                        // Update the particle's position: xi ← xi + vi
-                        if (particles[i][j] + velocities[i][j] < boundaries[j, 0])
-                            particles[i][j] = boundaries[j, 0];
-                        else if (particles[i][j] + velocities[i][j] > boundaries[j, 1])
-                            particles[i][j] = boundaries[j, 1];
-                        else
-                            particles[i][j] += velocities[i][j];
-                    }
-
-                    // if f(xi) < f(pi) then
-                    //    Update the particle's best known position: pi ← xi
-                    if (Cost(particles[i]) < Cost(particlesBests[i]))
-                    {
-                        for (int j = 0; j < dim; j++)
-                            particlesBests[i][j] = particles[i][j];
-
-                        // if f(pi) < f(g) then
-                        //    Update the swarm's best known position: g ← pi
-                        if (Cost(particles[i]) < Cost(globalBest))
-                        {
-                            for (int j = 0; j < dim; j++)
-                                globalBest[j] = particlesBests[i][j];
-                            changed = true;
-                        }
-                    }
-                }
-
-                // stop condition
-                if (changed)
-                    iteration = 0;
-                else
-                    iteration++;
-            }
-            return globalBest;
-        }
+        }       
     }
 }
