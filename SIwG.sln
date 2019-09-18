@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.645
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29230.47
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{5DEB16AE-43E6-4430-A566-652BC9E39609}"
 EndProject
@@ -33,6 +33,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParticleSwarmOptimization", "ParticleSwarmOptimization\ParticleSwarmOptimization.csproj", "{B34A6559-ECCE-491D-A91A-6C2543BA94AF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ant", "Ant\Ant.csproj", "{A839FC68-9C95-46EE-ABFC-411D60EAACFA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bee", "Bee\Bee.csproj", "{C52027DE-1B0B-4E5D-996D-C04E59CC101D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -92,6 +94,10 @@ Global
 		{A839FC68-9C95-46EE-ABFC-411D60EAACFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A839FC68-9C95-46EE-ABFC-411D60EAACFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A839FC68-9C95-46EE-ABFC-411D60EAACFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C52027DE-1B0B-4E5D-996D-C04E59CC101D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C52027DE-1B0B-4E5D-996D-C04E59CC101D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C52027DE-1B0B-4E5D-996D-C04E59CC101D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C52027DE-1B0B-4E5D-996D-C04E59CC101D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,5 @@
-﻿using Core;
+﻿using Bee;
+using Core;
 using System.Collections.ObjectModel;
 using System.Drawing;
 
@@ -41,6 +42,7 @@ namespace VisualizationWPFApp
             ProblemList.Add(new ParticleSwarmOptimization.ParticleSwarmOptimization());
             ProblemList.Add(new AlgorithmsLibrary.AntColonyOptimization());
             ProblemList.Add(new AlgorithmsLibrary.PSO());
+            ProblemList.Add(new Bee.Bee());
             // ---
             SelectedProblem = ProblemList[0];           
         }

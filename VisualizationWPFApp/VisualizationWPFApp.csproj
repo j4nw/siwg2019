@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>VisualizationWPFApp</RootNamespace>
     <AssemblyName>VisualizationWPFApp</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -111,6 +111,10 @@
     <ProjectReference Include="..\AlgorithmsLibrary\AlgorithmsLibrary.csproj">
       <Project>{4586ead7-540e-42e4-91db-b07190361e06}</Project>
       <Name>AlgorithmsLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bee\Bee.csproj">
+      <Project>{C52027DE-1B0B-4E5D-996D-C04E59CC101D}</Project>
+      <Name>Bee</Name>
     </ProjectReference>
     <ProjectReference Include="..\CellularAutomata\CellularAutomata.csproj">
       <Project>{37EC9B5D-43EC-46F3-808A-CCB03F6B18EC}</Project>

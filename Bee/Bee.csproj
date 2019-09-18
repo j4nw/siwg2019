@@ -4,18 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A839FC68-9C95-46EE-ABFC-411D60EAACFA}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>Ant</RootNamespace>
-    <AssemblyName>Ant</AssemblyName>
+    <ProjectGuid>{C52027DE-1B0B-4E5D-996D-C04E59CC101D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bee</RootNamespace>
+    <AssemblyName>Bee</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -45,19 +42,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Bee.cs" />
+    <Compile Include="Individual.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AlgorithmsLibrary\AlgorithmsLibrary.csproj">
-      <Project>{4586ead7-540e-42e4-91db-b07190361e06}</Project>
-      <Name>AlgorithmsLibrary</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{5deb16ae-43e6-4430-a566-652bc9e39609}</Project>
+      <Project>{5DEB16AE-43E6-4430-A566-652BC9E39609}</Project>
       <Name>Core</Name>
     </ProjectReference>
   </ItemGroup>
