@@ -99,6 +99,7 @@ namespace Bee
             for (int i = 0; i < bestAreasCount; i++)
             {
                 nextGen.Add(Neighborhood(scores.First().Value).First().Value);
+                scores.RemoveAt(0);
             }
 
             nextGen.AddRange(GenerateRandomPopulation(bestAreasCount, width, height));
