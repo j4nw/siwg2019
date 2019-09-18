@@ -9,21 +9,21 @@ using System.Threading.Tasks;
 namespace Bee
 {
     public class Bee : ProblemVisualization
-    {
-        private const int C = 5;       
+    {         
         private List<Individual> population;
         private Individual bestIndividual;
         public override System.Drawing.Bitmap Visualization
         {
             get
             {
+                int C = Settings.GetIntValue("Scale");
                 Bitmap image = new Bitmap(Settings.GetIntValue("Map width") * C, Settings.GetIntValue("Map height") * C);
                 Graphics g = Graphics.FromImage(image);
                 g.Clear(Color.BlueViolet);
                 g.FillRectangle(new SolidBrush(Color.GreenYellow),
                     new Rectangle(
-                        new Point((Settings.GetIntValue("Target X") - 3) * C, (Settings.GetIntValue("Target Y") - 3) * C),
-                        new Size(6 * C, 6 * C)));
+                        new Point((Settings.GetIntValue("Target X") - 2) * C, (Settings.GetIntValue("Target Y") - 2) * C),
+                        new Size(4 * C, 4 * C)));
 
                 NextGeneration();
                 bestIndividual = Score().First().Value;
@@ -37,10 +37,11 @@ namespace Bee
         {
             population = new List<Individual>();
             Name = "BeeAlgorithm";
-            Settings.Add("Population count", "10");
-            Settings.Add("Map width", "100");
-            Settings.Add("Map height", "100");
-            Settings.Add("Best areas count", "4");
+            Settings.Add("Population count", "15");
+            Settings.Add("Map width", "200");
+            Settings.Add("Map height", "200");
+            Settings.Add("Scale", "2");
+            Settings.Add("Best areas count", "10");
             Settings.Add("Target X", "74");
             Settings.Add("Target Y", "36");
             population = GenerateRandomPopulation(Settings.GetIntValue("Best areas count"),
@@ -66,6 +67,7 @@ namespace Bee
 
         private void PrintPopulation(Graphics g)
         {
+            int C = Settings.GetIntValue("Scale");
             foreach (var item in population)
             {
                 g.FillRectangle(new SolidBrush(Color.DarkRed),
